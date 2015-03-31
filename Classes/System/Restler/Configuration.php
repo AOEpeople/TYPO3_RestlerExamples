@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
     public function configureRestler(Restler $restler)
     {
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\CarController', 'api/motorsport');
+        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\ContentController', 'api/shop');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\FeUserController', 'api/shop');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\HttpStatusCodeController', 'api/http-status-codes');
     }
