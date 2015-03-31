@@ -1,6 +1,8 @@
 <?php
 namespace Aoe\RestlerExamples\System\Restler;
 use Aoe\Restler\System\Restler\ConfigurationInterface;
+use Luracast\Restler\Defaults;
+use Luracast\Restler\Format\JsonFormat;
 use Luracast\Restler\Restler;
 
 /***************************************************************
@@ -30,6 +32,8 @@ use Luracast\Restler\Restler;
 /**
  * Configure restler:
  *  - add API-classes
+ *  - configure JSON-format
+ *  - add event (the event is commented out, otherwise the output would be invalid...but you can see, how events work in restler)
  *
  * @package RestlerExamples
  */
@@ -41,9 +45,33 @@ class Configuration implements ConfigurationInterface
      */
     public function configureRestler(Restler $restler)
     {
+        // set german as supported language
+        //Defaults::$supportedLanguages = array('de');
+        //Defaults::$language = 'de';
+        JsonFormat::$prettyPrint = true;
+
+        $restler->setSupportedFormats('JsonFormat');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\CarController', 'api/motorsport');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\ContentController', 'api/shop');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\FeUserController', 'api/shop');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\HttpStatusCodeController', 'api/http-status-codes');
+
+        // add Event (restler supports several events - those events can be used for severeal purposes)
+        /*
+        // This is only a TEST...If we add content at the end of the response, than the
+        // response is maybe invalid and can not be displayed in the online documentation!
+        $closure = function () use ($restler) {
+            // Take note of the underscore ('_') to get the responseData from restler:
+            // In restler, we can access protected properties by using this underscore!
+            echo "\n\n";
+            echo "################################################################################ \n";
+            echo "Event 'onComplete' was triggered! \n";
+            echo "HTTP-StatusCode: ".$restler->responseCode."\n";
+            echo "String-Length of Response: " . strlen($restler->_responseData) . "\n";
+            echo "################################################################################ \n";
+            flush();
+        };
+        $restler->onComplete($closure);
+        */
     }
 }
