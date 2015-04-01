@@ -39,7 +39,7 @@ class CarControllerTest extends BaseControllerTest
         parent::setUp();
 
         $this->client->setSslVerification(false);
-        $this->client->setBaseUrl('http://www.congstar.local/api/');
+        $this->client->setBaseUrl('http://www.example.com/api/');
     }
 
     /**
