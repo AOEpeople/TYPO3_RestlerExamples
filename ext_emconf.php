@@ -3,7 +3,7 @@
 $EM_CONF[$_EXTKEY] = array(
     'title' => 'restler_examples',
     'description' => 'restler-examples for TYPO3',
-    'category' => 'plugin',
+    'category' => 'example',
     'author' => 'AOE GmbH',
     'author_company' => 'AOE GmbH',
     'author_email' => 'dev@aoe.com',
@@ -24,6 +24,7 @@ $EM_CONF[$_EXTKEY] = array(
         'depends' => array(
             'typo3' => '6.2.0-0.0.0',
             'php' => '5.3.0-0.0.0',
+            'restler' => ''
         ),
         'conflicts' => array(),
         'suggests' => array(),
