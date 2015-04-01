@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "required": true,
+    "additionalProperties": false,
+    "properties": {
+        "id": {
+            "description": "The unique identifier for a car",
+            "type": "integer",
+            "required": true
+        },
+        "manufacturer": {
+            "type": "object",
+            "required": true,
+            "$ref": "manufacturer.json#"
+        },
+        "models": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    }
+}

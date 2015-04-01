@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unique identifier for a manufacturer",
+            "type": "integer"
+        },
+        "name": {
+            "description": "Name of the manufacturer",
+            "type": "string"
+        }
+    }
+}

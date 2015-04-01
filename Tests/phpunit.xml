@@ -1,0 +1,20 @@
+<phpunit strict="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         bootstrap="bootstrap.php"
+        >
+    <testsuites>
+        <testsuite name="restler_examples">
+            <directory suffix="Test.php">./</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../Classes</directory>
+        </whitelist>
+    </filter>
+    <php>
+        <const name="RESTLER_EXAMPLES_PHPUNIT_CONTEXT" value="1" />
+    </php>
+</phpunit>
