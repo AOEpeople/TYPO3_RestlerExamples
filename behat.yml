@@ -1,0 +1,7 @@
+# behat.yml
+default:
+    context:
+        parameters:
+            base_url: http://www.example.local/api/
+    paths:
+        features: Tests/Features
