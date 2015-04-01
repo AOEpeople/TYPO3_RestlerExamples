@@ -1,5 +1,6 @@
 <?php
 namespace Aoe\RestlerExamples\Domain\Model;
+
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 
 /***************************************************************
@@ -38,7 +39,8 @@ use Aoe\RestlerExamples\Domain\Model\Manufacturer;
  * @package RestlerExamples
  * @subpackage Domain/Model
  */
-class Car {
+class Car
+{
     /**
      * @var integer {@required true} {@min 1}
      */

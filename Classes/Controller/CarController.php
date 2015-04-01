@@ -1,5 +1,6 @@
 <?php
 namespace Aoe\RestlerExamples\Controller;
+
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 
@@ -88,6 +89,7 @@ class CarController
      * We use the automatic validation of restler, so the properties (of our custom domain-model-objects) contain the validation-rules
      *
      * @url POST cars
+     * @status 201
      *
      * @param Car $car {@from body} {@type Aoe\RestlerExamples\Domain\Model\Car}
      * @return Car {@type Aoe\RestlerExamples\Domain\Model\Car}

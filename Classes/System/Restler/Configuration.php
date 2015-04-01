@@ -1,5 +1,6 @@
 <?php
 namespace Aoe\RestlerExamples\System\Restler;
+
 use Aoe\Restler\System\Restler\ConfigurationInterface;
 use Luracast\Restler\Defaults;
 use Luracast\Restler\Format\JsonFormat;

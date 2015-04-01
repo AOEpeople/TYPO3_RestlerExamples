@@ -37,7 +37,8 @@ namespace Aoe\RestlerExamples\Domain\Model;
  * @package RestlerExamples
  * @subpackage Domain/Model
  */
-class Manufacturer {
+class Manufacturer
+{
     /**
      * @var integer {@required true} {@min 1}
      */

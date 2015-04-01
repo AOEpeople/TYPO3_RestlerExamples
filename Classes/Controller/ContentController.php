@@ -1,5 +1,6 @@
 <?php
 namespace Aoe\RestlerExamples\Controller;
+
 use Aoe\Restler\System\TYPO3\Loader as TYPO3Loader;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -100,5 +101,4 @@ class ContentController
         );
         return $this->cObject->RECORDS($cConf);
     }
-
 }
