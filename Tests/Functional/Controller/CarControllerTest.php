@@ -4,6 +4,7 @@ namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 use Aoe\Restler\Tests\Functional\Controller\BaseControllerTest;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -86,6 +87,7 @@ class CarControllerTest extends BaseControllerTest
      */
     public function getJsonSchemaPath()
     {
-        return realpath(__DIR__ . '/..') . DIRECTORY_SEPARATOR . 'json-schema' .DIRECTORY_SEPARATOR;
+        $extensionPath = ExtensionManagementUtility::extPath('restler_examples');
+        return $extensionPath . '/Tests/Functional/json-schema/';
     }
 }
