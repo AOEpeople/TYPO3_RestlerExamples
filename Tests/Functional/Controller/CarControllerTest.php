@@ -3,7 +3,7 @@ namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
-use Aoe\Restler\Tests\Functional\Controller\BaseControllerTest;
+use Aoe\RestlerExamples\Tests\Functional\Controller\BaseControllerTest;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /***************************************************************
