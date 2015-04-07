@@ -4,4 +4,4 @@ default:
         parameters:
             base_url: http://www.example.local/api/
     paths:
-        features: Tests/Features
+        features: Tests/features
