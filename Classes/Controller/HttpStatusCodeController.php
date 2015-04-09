@@ -69,10 +69,12 @@ class HttpStatusCodeController
             return array('id' => $id, 'name' => 'tester');
         }
 
-        $details = array('errors' => array(
-            array('code' => 1024, 'field' => 'id', 'message' => 'bliblablub'),
-            array('code' => 1024, 'field' => 'id', 'message' => 'bliblablub')
-        ));
+        $details = array(
+            'errors' => array(
+                array('code' => 1024, 'field' => 'id', 'message' => 'bliblablub'),
+                array('code' => 1024, 'field' => 'id', 'message' => 'bliblablub')
+            )
+        );
 
         throw new RestException(404, 'id does not exists', $details);
     }
@@ -148,7 +150,8 @@ class HttpStatusCodeController
     /**
      * Test with HTTP-Status-Codes and Exceptions - Part 6
      *
-     * Delete object via REST-endpoint (and return HTTP-Status-Code 204). Throw Exception, when variable $id has NOT the value 1
+     * Delete object via REST-endpoint (and return HTTP-Status-Code 204).
+     * Throw Exception, when variable $id has NOT the value 1
      *
      * @url DELETE objects/{id}
      * @status 204

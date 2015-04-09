@@ -3,6 +3,7 @@ namespace Aoe\RestlerExamples\Controller;
 
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
+use Luracast\Restler\RestException;
 
 /***************************************************************
  *  Copyright notice

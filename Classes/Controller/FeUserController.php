@@ -1,6 +1,8 @@
 <?php
 namespace Aoe\RestlerExamples\Controller;
 
+use Luracast\Restler\RestException;
+
 /***************************************************************
  *  Copyright notice
  *
