@@ -79,7 +79,8 @@ class ContentController
     /**
      * Render tt_content-Record (for logged-in FE-user)
      *
-     * Render the tt_content-Element with given pageId and content-element-UID - This method is only callable, when FE-user is logged-in
+     * Render the tt_content-Element with given pageId and content-element-UID
+     * This method is only callable, when FE-user is logged-in
      *
      * @url GET customer/self/pages/{pageId}/tt_content/{contentElementUid}
      * @access protected

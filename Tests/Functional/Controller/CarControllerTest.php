@@ -63,11 +63,11 @@ class CarControllerTest extends BaseControllerTest
     public function buyCar()
     {
         $car = new Car();
-        $car->id= 1;
+        $car->id = 1;
         $car->manufacturer = new Manufacturer();
         $car->manufacturer->id = 1;
         $car->manufacturer->name = 'BMW';
-        $car->models = array('X1','X3', 'X5');
+        $car->models = array('X1', 'X3', 'X5');
 
         $response = $this->client
             ->post('motorsport/cars/', null, json_encode($car))
