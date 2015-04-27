@@ -57,6 +57,9 @@ class Configuration implements ConfigurationInterface
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\FeUserController', 'api/shop');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\HttpStatusCodeController', 'api/http-status-codes');
 
+        // add exception-handler (which logs exceptions)
+        $restler->addErrorClass('Aoe\\RestlerExamples\\System\\Restler\\ExceptionHandler');
+
         // add Event (restler supports several events - those events can be used for severeal purposes)
         /*
         // This is only a TEST...If we add content at the end of the response, than the
