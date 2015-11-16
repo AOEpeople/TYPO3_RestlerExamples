@@ -46,7 +46,7 @@ class Car
      */
     public $id;
     /**
-     * @var Manufacturer {@required true} {@type Aoe\RestlerExamples\Domain\Model\Manufacturer}
+     * @var Manufacturer {@required true} {@type \Aoe\RestlerExamples\Domain\Model\Manufacturer}
      */
     public $manufacturer;
     /**

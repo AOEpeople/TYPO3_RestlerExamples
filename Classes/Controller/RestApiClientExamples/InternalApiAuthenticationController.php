@@ -1,5 +1,5 @@
 <?php
-namespace Aoe\RestlerExamples\Controller;
+namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 /***************************************************************
  *  Copyright notice

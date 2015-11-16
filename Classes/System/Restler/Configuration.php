@@ -53,13 +53,13 @@ class Configuration implements ConfigurationInterface
 
         $restler->setSupportedFormats('JsonFormat');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\CarController', 'api/motorsport');
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\ExternalApiController', 'api/motorsport');
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\InternalApiController', 'api/motorsport');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\ContentController', 'api/shop');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\FeUserController', 'api/shop');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\HttpStatusCodeController', 'api/http-status-codes');
 
-        $restler->addAuthenticationClass('Aoe\\RestlerExamples\\Controller\\InternalApiAuthenticationController');
+        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\ExternalApiController', 'api/rest-api-client');
+        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\InternalApiController', 'api/rest-api-client');
+        $restler->addAuthenticationClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\InternalApiAuthenticationController');
 
         // add exception-handler (which logs exceptions)
         $restler->addErrorClass('Aoe\\RestlerExamples\\System\\Restler\\ExceptionHandler');

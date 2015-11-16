@@ -1,9 +1,5 @@
 <?php
-namespace Aoe\RestlerExamples\Controller;
-
-use Aoe\RestlerExamples\Domain\Model\Car;
-use Aoe\RestlerExamples\Domain\Model\Manufacturer;
-use Luracast\Restler\RestException;
+namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 /***************************************************************
  *  Copyright notice
@@ -29,49 +25,26 @@ use Luracast\Restler\RestException;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * @package RestlerExamples
- * @subpackage Controller
- */
-class CarController
+use Aoe\RestlerExamples\Domain\Model\Car;
+use Aoe\RestlerExamples\Domain\Model\Manufacturer;
+use Luracast\Restler\RestException;
+
+class InternalApiController
 {
     /**
-     * Test GET-Method with public REST-API-endpoint
+     * Internal API-Endpoint
      *
-     * API-Endpoint is always callable
+     * This internal API-endpoint is protected from outside, if production-mode is active.
+     * Use Aoe\Restler\System\RestApi\RestApiClient to call this endpoint.
      *
-     * @url GET cars/{id}
-     *
-     * @param integer $id
-     * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     */
-    public function getCarsById($id)
-    {
-        $manufacturer = new Manufacturer();
-        $manufacturer->id = $id;
-        $manufacturer->name = 'BMW';
-
-        $car = new Car();
-        $car->manufacturer = $manufacturer;
-        $car->id = $id;
-        $car->models = array('X3', 'X5', 'X7');
-        return $car;
-    }
-
-    /**
-     * Test GET-Method with protected REST-API-endpoint
-     *
-     * API-Endpoint is only callable, when TYPO3-Frontend-user is logged-in
-     *
-     * @url GET cars/{id}/customer/self
+     * @url GET internal_endpoint/cars/{id}
      * @access protected
-     * @class Aoe\Restler\Controller\FeUserAuthenticationController {@checkAuthentication true}
+     * @class Aoe\RestlerExamples\Controller\RestApiClientExamples\InternalApiAuthenticationController {@checkAuthentication true}
      *
      * @param integer $id
      * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     * @throws RestException 401 frontend-user is not logged-in
      */
-    public function getCarsByIdForLoggedInCustomer($id)
+    public function getCarById($id)
     {
         $manufacturer = new Manufacturer();
         $manufacturer->id = $id;
@@ -85,12 +58,15 @@ class CarController
     }
 
     /**
-     * Test POST-Request with automatic validation
+     * Internal API-Endpoint
      *
-     * We use the automatic validation of restler, so the properties (of our custom domain-model-objects) contain the validation-rules
+     * This internal API-endpoint is protected from outside, if production-mode is active.
+     * Use Aoe\Restler\System\RestApi\RestApiClient to call this endpoint.
      *
-     * @url POST cars
+     * @url POST internal_endpoint/cars
      * @status 201
+     * @access protected
+     * @class Aoe\RestlerExamples\Controller\RestApiClientExamples\InternalApiAuthenticationController {@checkAuthentication true}
      *
      * @param Car $car {@from body} {@type \Aoe\RestlerExamples\Domain\Model\Car}
      * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
