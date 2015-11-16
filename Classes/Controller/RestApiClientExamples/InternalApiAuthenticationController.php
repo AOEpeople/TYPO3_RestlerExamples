@@ -49,7 +49,7 @@ class InternalApiAuthenticationController implements iAuthenticate
      *
      * Example:
      * When this controller should be used for authentication-checks, than the PHPdoc-comment must look like this:
-     * @class Aoe\RestlerExamples\Controller {@checkAuthentication true}
+     * @class Aoe\RestlerExamples\Controller\RestApiClientExamples\InternalApiAuthenticationController {@checkAuthentication true}
      *
      * @var boolean
      */
@@ -69,7 +69,7 @@ class InternalApiAuthenticationController implements iAuthenticate
     }
 
     /**
-     * This method checks, if client is allowed to access the requested API-class
+     * This method checks, if client is allowed to access the requested (internal) API-class
      *
      * @return boolean
      */
@@ -81,9 +81,12 @@ class InternalApiAuthenticationController implements iAuthenticate
         }
 
         if ($this->restApiClient->isProductionContextSet() && false === $this->restApiClient->isExecutingRequest()) {
+            // on production, it's not allowed to call an internal REST-API from 'outside' (via e.g. browser)
             return false;
         }
 
+        // on none-production, it's allowed to call an internal REST-API from 'outside' (via e.g. browser - to test/check the REST-API)
+        // on none-production and production, it's allowed to call an internal REST-API via Aoe\Restler\System\RestApi\RestApiClient
         return true;
     }
 
