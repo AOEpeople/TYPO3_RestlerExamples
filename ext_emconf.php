@@ -2,7 +2,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
     'title' => 'restler_examples',
-    'description' => 'restler-examples for TYPO3',
+    'description' => 'Examples for using Restler in TYPO3',
     'category' => 'example',
     'author' => 'AOE GmbH',
     'author_company' => 'AOE GmbH',
@@ -19,7 +19,7 @@ $EM_CONF[$_EXTKEY] = array(
     'modify_tables' => '',
     'clearCacheOnLoad' => 0,
     'lockType' => '',
-    'version' => '0.5.0',
+    'version' => '0.5.1',
     'constraints' => array(
         'depends' => array(
             'typo3' => '6.2.0-6.2.99',

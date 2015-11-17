@@ -15,7 +15,7 @@ restler_examples
 .. only:: html
 
 	:Classification:
-		extension_key
+		restler_examples
 
 	:Version:
 		|release|
@@ -24,10 +24,10 @@ restler_examples
 		en
 
 	:Description:
-		enter description.
+		This is a TYPO3-Extension, which contains some examples on how to use/configure the TYPO3-Extension Restler.
 
 	:Keywords:
-		comma,separated,list,keywords
+		REST,Restler,examples,API
 
 	:Copyright:
 		2015

@@ -8,4 +8,4 @@
 
 What does it do?
 ================
-Basic example for the Restler extension for TYPO3 (REST API).
+It contains some basic examples for the Restler extension for TYPO3 (REST API).

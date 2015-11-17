@@ -11,7 +11,6 @@ conf.py:
   latex_documents:
   - - Index
     - TYPO3RestlerExamples.tex
-    - Brute Force Protection
     - manual
   latex_elements:
     papersize: a4paper
