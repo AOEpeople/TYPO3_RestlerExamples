@@ -31,6 +31,7 @@ use Aoe\Restler\System\RestApi\RestApiClient;
 use Aoe\Restler\System\RestApi\RestApiRequestException;
 use Luracast\Restler\RestException;
 use Exception;
+use stdClass;
 
 class ExternalApiController
 {
@@ -67,11 +68,11 @@ class ExternalApiController
     {
         try {
             return array(
-                $this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/1'),
-                $this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/2'),
-                $this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/3'),
-                $this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/4'),
-                $this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/5')
+                $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/1')),
+                $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/2')),
+                $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/3')),
+                $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/4')),
+                $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/5'))
             );
         } catch (RestApiRequestException $e) {
             $this->throwRestException(self::HTTP_STATUS_CODE_BAD_REQUEST, 1446132825, $e->getMessage(), $e);
@@ -96,17 +97,11 @@ class ExternalApiController
     public function getCarById($id)
     {
         try {
-            // 1. call REST-API - REST-API will return an array, which contains the car-data
+            // 1. call REST-API - REST-API will return a stdClass-object, which contains the car-data
             $carData = $this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/'.$id);
 
-            // 2. do reconstitution (create 'real' objects on base of the car-data-array)
-            $carFromInternalRequest = new Car();
-            $carFromInternalRequest->id = $carData['id'];
-            $carFromInternalRequest->models = $carData['models'];
-            $carFromInternalRequest->manufacturer = new Manufacturer();
-            $carFromInternalRequest->manufacturer->id = $carData['manufacturer']['id'];
-            $carFromInternalRequest->manufacturer->name = $carData['manufacturer']['name'];
-            return $carFromInternalRequest;
+            // 2. do reconstitution (create 'real' objects on base of the stdClass-object)
+            return $this->convertDataToCarObject($carData);
         } catch (RestApiRequestException $e) {
             $this->throwRestException(self::HTTP_STATUS_CODE_BAD_REQUEST, 1446132825, $e->getMessage(), $e);
         }
@@ -132,24 +127,18 @@ class ExternalApiController
     public function buyCar(Car $car)
     {
         try {
-            // 1. call REST-API - REST-API will return an array, which contains the car-data
-            $getData = array();
-            $postData = array();
-            $postData['id'] = $car->id;
-            $postData['models'] = $car->models;
-            $postData['manufacturer'] = array();
-            $postData['manufacturer']['id'] = $car->manufacturer->id;
-            $postData['manufacturer']['name'] = $car->manufacturer->name;
+            // 1. call REST-API - REST-API will return a stdClass-object, which contains the car-data
+            $getData = null;
+            $postData = new stdClass();
+            $postData->id = $car->id;
+            $postData->models = $car->models;
+            $postData->manufacturer = new stdClass();
+            $postData->manufacturer->id = $car->manufacturer->id;
+            $postData->manufacturer->name = $car->manufacturer->name;
             $carData = $this->restApiClient->executeRequest('POST', '/api/rest-api-client/internal_endpoint/cars', $getData, $postData);
 
-            // 2. do reconstitution (create 'real' objects on base of the car-data-array)
-            $carFromInternalRequest = new Car();
-            $carFromInternalRequest->id = $carData['id'];
-            $carFromInternalRequest->models = $carData['models'];
-            $carFromInternalRequest->manufacturer = new Manufacturer();
-            $carFromInternalRequest->manufacturer->id = $carData['manufacturer']['id'];
-            $carFromInternalRequest->manufacturer->name = $carData['manufacturer']['name'];
-            return $carFromInternalRequest;
+            // 2. do reconstitution (create 'real' objects on base of the stdClass-object)
+            return $this->convertDataToCarObject($carData);
         } catch(RestApiRequestException $e) {
             $this->throwRestException(self::HTTP_STATUS_CODE_BAD_REQUEST, 1446132826, $e->getMessage(), $e);
         }
@@ -167,5 +156,20 @@ class ExternalApiController
     {
         $details = array('error_code' => $errorCode, 'error_message' => $errorMessage);
         throw new RestException($httpStatusCode, null, $details, $exception);
+    }
+
+    /**
+     * @param stdClass $carData
+     * @return Car
+     */
+    private function convertDataToCarObject(stdClass $carData)
+    {
+        $car = new Car();
+        $car->id = $carData->id;
+        $car->models = $carData->models;
+        $car->manufacturer = new Manufacturer();
+        $car->manufacturer->id = $carData->manufacturer->id;
+        $car->manufacturer->name = $carData->manufacturer->name;
+        return $car;
     }
 }
