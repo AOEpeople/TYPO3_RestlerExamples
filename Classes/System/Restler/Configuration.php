@@ -57,6 +57,8 @@ class Configuration implements ConfigurationInterface
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\FeUserController', 'api/shop');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\HttpStatusCodeController', 'api/http-status-codes');
 
+        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\ExtbaseExamples\\ProductController', 'api/extbase-examples');
+
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\ExternalApiController', 'api/rest-api-client');
         $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\InternalApiController', 'api/rest-api-client');
         $restler->addAuthenticationClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\InternalApiAuthenticationController');
