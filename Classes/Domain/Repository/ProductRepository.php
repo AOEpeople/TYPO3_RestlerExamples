@@ -10,8 +10,6 @@ class ProductRepository extends Repository
     /**
      * set default query-settings:
      *  - It should not matter on which page are the records
-     *  - It should not matter if the records are hidden or not (keyword 'enable fields')
-     *  - It should not matter which sys-language is configured
      *
      * @return void
      */
