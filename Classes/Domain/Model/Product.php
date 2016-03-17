@@ -89,9 +89,9 @@ class Product extends AbstractEntity
         if (null === $this->uriBuilder) {
             $objectManager = new ObjectManager();
             /** @var ConfigurationManagerInterface $r */
-            $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
-            $configurationManager->setContentObject($objectManager->get(ContentObjectRenderer::class));
-            $this->uriBuilder = $objectManager->get(UriBuilder::class);
+            $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+            $configurationManager->setContentObject($objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'));
+            $this->uriBuilder = $objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
         }
         return $this->uriBuilder;
     }
