@@ -36,7 +36,9 @@ class Product extends AbstractEntity
     public $name;
 
     /**
-     * overwrite parent method, so that we can override the property 'detailsPage' and set the URL of the detailsPage
+     * overwrite parent method, so that we can override the following properties:
+     *  - property 'detailsPage': build the URL of the detailsPage (otherwise the property would contain the pageId as value)
+     *  - property 'description': render the RTE-content correct as HTML (otherwise the property would contain pseudo-HTML-code)
      *
      * @param string $propertyName
      * @param mixed $propertyValue
