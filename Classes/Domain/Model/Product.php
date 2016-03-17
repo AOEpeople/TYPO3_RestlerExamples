@@ -10,6 +10,10 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 class Product extends AbstractEntity
 {
     /**
+     * @var ContentObjectRenderer
+     */
+    private $cObject;
+    /**
      * @var UriBuilder
      */
     private $uriBuilder;
@@ -43,6 +47,9 @@ class Product extends AbstractEntity
 
         if ($propertyName === 'detailsPage') {
             $this->detailsPage = $this->buildDetailPageUrl();
+        }
+        if ($propertyName === 'description') {
+            $this->description = $this->renderDescriptionAsHtml();
         }
 
         return $result;
@@ -80,6 +87,25 @@ class Product extends AbstractEntity
             ->setCreateAbsoluteUri(true)
             ->setTargetPageUid((integer) $this->detailsPage)
             ->buildFrontendUri();
+    }
+    /**
+     * @return string
+     */
+    private function renderDescriptionAsHtml()
+    {
+        return $this->getCObject()->parseFunc($this->description, array(), '< lib.parseFunc_RTE');
+    }
+
+    /**
+     * @return ContentObjectRenderer
+     */
+    private function getCObject()
+    {
+        if (null === $this->cObject) {
+            $objectManager = new ObjectManager();
+            $this->cObject = $objectManager->get('TYPO3\\CMS\\Frontend\ContentObject\\ContentObjectRenderer');
+        }
+        return $this->cObject;
     }
     /**
      * @return UriBuilder
