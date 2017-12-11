@@ -30,4 +30,4 @@ The dependencies inside _composer.json are used just for the tests examples (fun
 
 .. code-block:: bash
 
-    COMPOSER=_composer.json php composer.phar install
+    composer install
