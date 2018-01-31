@@ -58,7 +58,9 @@ return array(
                         'type' => 'script',
                         'title' => 'Full screen Rich Text Editing|Formatteret redigering i hele vinduet',
                         'icon' => 'wizard_rte2.gif',
-                        'script' => 'wizard_rte.php',
+                        'module' => [
+                            'name' => 'wizard_rte',
+                        ],
                     ),
                 )
             ),

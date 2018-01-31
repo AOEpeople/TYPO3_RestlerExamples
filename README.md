@@ -17,7 +17,7 @@ git clone https://github.com/AOEpeople/TYPO3_RestlerExamples.git restler_example
 
 Use composer to download all dev-dependencies to run behat tests and other stuff
 ```bash
-COMPOSER=_composer.json composer install
+composer install
 ```
 
 Activate the restler_example extension in the Extension Manager.
@@ -34,7 +34,7 @@ The documentation is available online at [docs.typo3.org][RestlerExamples_Docume
 
 ## Copyright / License
 
-Copyright: (c) 2015, AOE GmbH <dev@aoe.com>
+Copyright: (c) 2017, AOE GmbH <dev@aoe.com>
 License: GPLv3, <http://www.gnu.org/licenses/gpl-3.0.en.html>
 
 
