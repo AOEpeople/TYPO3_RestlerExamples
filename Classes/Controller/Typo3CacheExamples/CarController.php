@@ -33,6 +33,10 @@ use Luracast\Restler\RestException;
 /**
  * @package RestlerExamples
  * @subpackage Controller
+ *
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("restler_typo3cache_expires")
+ * @IgnoreAnnotation("restler_typo3cache_tags")
  */
 class CarController
 {

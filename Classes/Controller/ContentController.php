@@ -31,6 +31,10 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 /**
  * @package RestlerExamples
  * @subpackage Controller
+ *
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("access")
+ * @IgnoreAnnotation("class")
  */
 class ContentController
 {

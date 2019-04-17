@@ -33,6 +33,8 @@ use stdClass;
 /**
  * @package RestlerExamples
  * @subpackage Controller
+ *
+ * @IgnoreAnnotation("url")
  */
 class ProductController
 {

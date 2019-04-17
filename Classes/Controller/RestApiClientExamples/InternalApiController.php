@@ -29,6 +29,16 @@ use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 use Luracast\Restler\RestException;
 
+/**
+ * Class InternalApiController
+ * @package Aoe\RestlerExamples\Controller\RestApiClientExamples
+ *
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("access")
+ * @IgnoreAnnotation("class")
+ * @IgnoreAnnotation("status")
+
+ */
 class InternalApiController
 {
     /**

@@ -17,6 +17,8 @@ This is a TYPO3-Extension, which contain some Examples, how to use/configure the
 
 Read more details in the TYPO3 restler extension documentation.
 
+Have a look at the /api_explorer/swagger endpoint to see all available routes.
+
 Target group: **Developers**
 
 

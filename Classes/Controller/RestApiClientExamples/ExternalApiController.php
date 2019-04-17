@@ -33,6 +33,13 @@ use Luracast\Restler\RestException;
 use Exception;
 use stdClass;
 
+/**
+ * Class ExternalApiController
+ * @package Aoe\RestlerExamples\Controller\RestApiClientExamples
+ *
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("status")
+ */
 class ExternalApiController
 {
     const HTTP_STATUS_CODE_BAD_REQUEST = 400;

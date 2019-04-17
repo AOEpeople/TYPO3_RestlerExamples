@@ -32,6 +32,10 @@ use Luracast\Restler\RestException;
 /**
  * @package RestlerExamples
  * @subpackage Controller
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("access")
+ * @IgnoreAnnotation("class")
+ * @IgnoreAnnotation("status")
  */
 class CarController
 {

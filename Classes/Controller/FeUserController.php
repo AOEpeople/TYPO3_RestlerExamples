@@ -30,6 +30,10 @@ use Luracast\Restler\RestException;
 /**
  * @package RestlerExamples
  * @subpackage Controller
+ *
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("access")
+ * @IgnoreAnnotation("class")
  */
 class FeUserController
 {

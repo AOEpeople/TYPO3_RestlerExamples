@@ -9,23 +9,27 @@
     }
   ],
   "require": {
-    "aoe/restler": "^2.0",
-    "typo3/cms-core": ">=7.6.0, <=8.7.99"
+    "aoe/restler": "dev-feature/typo3-9-support",
+    "typo3/cms-core": ">=7.6.0, <=9.5.99"
   },
   "require-dev": {
-    "symfony/finder": "2.5.x-dev",
-    "guzzle/guzzle": "~3.9",
-    "behat/behat": "2.5.*@stable",
-    "bshaffer/oauth2-server-php": "v1.0",
-    "justinrainbow/json-schema": "1.5.*"
+    "justinrainbow/json-schema": "1.5.*",
   },
   "autoload": {
     "psr-4": {
       "Aoe\\RestlerExamples\\": "Classes"
     }
   },
-  "replace": {
-    "restler_examples": "*"
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web",
+      "extension-key": "restler_examples"
+    }
   },
   "keywords": [
     "TYPO3",

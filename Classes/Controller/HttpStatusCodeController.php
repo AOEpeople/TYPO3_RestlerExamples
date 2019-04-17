@@ -30,6 +30,9 @@ use Luracast\Restler\RestException;
 /**
  * @package RestlerExamples
  * @subpackage Controller
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("expires")
+ * @IgnoreAnnotation("status")
  */
 class HttpStatusCodeController
 {
