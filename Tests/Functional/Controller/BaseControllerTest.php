@@ -1,11 +1,10 @@
 <?php
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use Guzzle\Http\Client;
 use JsonSchema\Uri\UriRetriever;
 use JsonSchema\RefResolver;
 use JsonSchema\Validator;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -31,27 +30,24 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-abstract class BaseControllerTest extends UnitTestCase
+abstract class BaseControllerTest extends FunctionalTestCase
 {
-    /**
-     * @var Client
-     */
-    protected $client;
+    protected $testExtensionsToLoad = [
+        'typo3conf/ext/restler',
+        'typo3conf/ext/restler_examples'
+    ];
 
     /**
      * set up objects
      */
     public function setUp()
     {
-        $this->client = new Client();
-    }
+        parent::setUp();
 
-    /**
-     * clean up
-     */
-    public function tearDown()
-    {
-        unset($this->client);
+        $this->importDataSet(__DIR__ . '/../Fixtures/pages.xml');
+
+        $this->setUpFrontendRootPage(1, ['EXT:restler_examples/Tests/Functional/Fixtures/Basic.ts']);
+
     }
 
     /**

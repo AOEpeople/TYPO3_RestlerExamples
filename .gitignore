@@ -1,2 +1,4 @@
-_composer.lock
-vendor/
+composer.lock
+.Build
+.idea
+*.iml

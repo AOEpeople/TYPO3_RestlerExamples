@@ -13,8 +13,15 @@
     "typo3/cms-core": ">=7.6.0, <=9.5.99"
   },
   "require-dev": {
-    "justinrainbow/json-schema": "1.5.*"
+    "justinrainbow/json-schema": "1.5.*",
+    "typo3/testing-framework": "^4"
   },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/AOEpeople/Restler.git"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Aoe\\RestlerExamples\\": "Classes"
@@ -24,10 +31,14 @@
     "vendor-dir": ".Build/vendor",
     "bin-dir": ".Build/bin"
   },
+  "scripts": {
+    "post-autoload-dump": [
+      "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+    ]
+  },
   "extra": {
     "typo3/cms": {
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/Web",
+      "web-dir": ".Build",
       "extension-key": "restler_examples"
     }
   },

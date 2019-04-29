@@ -5,6 +5,7 @@ use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 use Aoe\RestlerExamples\Tests\Functional\Controller\BaseControllerTest;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 
 /***************************************************************
  *  Copyright notice
@@ -38,9 +39,6 @@ class CarControllerTest extends BaseControllerTest
     public function setUp()
     {
         parent::setUp();
-
-        $this->client->setSslVerification(false);
-        $this->client->setBaseUrl('http://www.example.com/api/');
     }
 
     /**
@@ -48,13 +46,27 @@ class CarControllerTest extends BaseControllerTest
      */
     public function getCarsById()
     {
-        $response = $this->client->get('motorsport/cars/1/')->send();
+        $response = $this->executeFrontendRequest(
+            new InternalRequest('https://website.local/api/motorsport/cars/1/')
+        );
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJsonSchema(
-            $response->getBody(true),
+            (string)$response->getBody(),
             $this->getJsonSchemaPath() . 'car.json'
         );
+    }
+
+    /**
+     * @test
+     */
+    public function getInvalidCarsById()
+    {
+        $response = $this->executeFrontendRequest(
+            new InternalRequest('https://website.local/api/motorsport/cars/X/')
+        );
+
+        $this->assertEquals(400, $response->getStatusCode());
     }
 
     /**
@@ -69,15 +81,22 @@ class CarControllerTest extends BaseControllerTest
         $car->manufacturer->name = 'BMW';
         $car->models = array('X1', 'X3', 'X5');
 
-        $response = $this->client
-            ->post('motorsport/cars/', null, json_encode($car))
-            ->send();
+        $response = $this->executeFrontendRequest(
+            new InternalRequest(
+                'https://website.local/api/motorsport/cars/',
+                'POST',
+                json_encode($car),
+                [
+                    'Content-Type' => 'application/json'
+                ]
+            )
+        );
 
-        $this->assertEquals(201, $response->getStatusCode());
         $this->assertJsonSchema(
-            $response->getBody(true),
+            (string)$response->getBody(),
             $this->getJsonSchemaPath() . 'car.json'
         );
+        $this->assertEquals(201, $response->getStatusCode());
     }
 
     /**
