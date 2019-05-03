@@ -30,7 +30,7 @@ restler_examples
 		REST,Restler,examples,API
 
 	:Copyright:
-		2017
+		2019
 
 	:Author:
 		AOE GmbH
@@ -39,7 +39,7 @@ restler_examples
 		dev@aoe.com
 
 	:License:
-		copyright 2017 AOE GmbH
+		copyright 2019 AOE GmbH
 
 		All rights reserved
 

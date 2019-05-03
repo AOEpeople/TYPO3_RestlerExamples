@@ -4,7 +4,7 @@ namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2019 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -63,6 +63,7 @@ class ExternalApiController
      * @url GET external_endpoint/cars/
      *
      * @return array {@type \Aoe\RestlerExamples\Domain\Model\Car}
+     * @throws RestException
      */
     public function getListOfCars()
     {
@@ -93,6 +94,7 @@ class ExternalApiController
      *
      * @param integer $id
      * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
+     * @throws RestException
      */
     public function getCarById($id)
     {

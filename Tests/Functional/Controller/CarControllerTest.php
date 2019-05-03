@@ -3,7 +3,7 @@ namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
-use Aoe\RestlerExamples\Tests\Functional\Controller\BaseControllerTest;
+use GuzzleHttp\Client;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /***************************************************************
@@ -35,12 +35,14 @@ class CarControllerTest extends BaseControllerTest
     /**
      * set up car controller test
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
-        $this->client->setSslVerification(false);
-        $this->client->setBaseUrl('http://www.example.com/api/');
+        $this->client = new Client([
+            'base_uri' => 'http://www.example.com/api/',
+            'verify' => false
+        ]);
     }
 
     /**
@@ -48,7 +50,7 @@ class CarControllerTest extends BaseControllerTest
      */
     public function getCarsById()
     {
-        $response = $this->client->get('motorsport/cars/1/')->send();
+        $response = $this->client->get('motorsport/cars/1/');
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJsonSchema(
@@ -69,9 +71,12 @@ class CarControllerTest extends BaseControllerTest
         $car->manufacturer->name = 'BMW';
         $car->models = array('X1', 'X3', 'X5');
 
-        $response = $this->client
-            ->post('motorsport/cars/', null, json_encode($car))
-            ->send();
+        $response = $this->client->post(
+            'motorsport/cars',
+            [
+                'body' => json_encode($car)
+            ]
+        );
 
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertJsonSchema(
@@ -85,9 +90,8 @@ class CarControllerTest extends BaseControllerTest
      *
      * @return string
      */
-    public function getJsonSchemaPath()
+    private function getJsonSchemaPath()
     {
-        $extensionPath = ExtensionManagementUtility::extPath('restler_examples');
-        return $extensionPath . '/Tests/Functional/json-schema/';
+        return __DIR__ . '/../json-schema/';
     }
 }

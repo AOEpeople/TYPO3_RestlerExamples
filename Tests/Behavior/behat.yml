@@ -1,0 +1,17 @@
+# behat.yml
+
+default:
+    autoload:
+        '': %paths.base%/Bootstrap
+
+    # disable gherkin-file-cache (which can create problems, when cache is activated and we modify our behat-tests)
+    gherkin:
+        cache: ~
+
+    suites:
+        default:
+            paths: [%paths.base%/Features]
+            contexts:
+                - RestContext:
+                      parameters:
+                          base_url: https://www.example.com/api/

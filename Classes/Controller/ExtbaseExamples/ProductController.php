@@ -4,12 +4,13 @@ namespace Aoe\RestlerExamples\Controller\ExtbaseExamples;
 use Aoe\RestlerExamples\Domain\Model\Product;
 use Aoe\RestlerExamples\Domain\Repository\ProductRepository;
 use Aoe\Restler\System\TYPO3\Loader;
+use TYPO3\CMS\Core\Error\Http\ServiceUnavailableException;
 use stdClass;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016 AOE GmbH <dev@aoe.com>
+ *  (c) 2019 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -66,7 +67,8 @@ class ProductController
      *
      * @url GET extbase-model-with-public-properties/pages/{pageUid}/products/
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
-     * @return Array {@type \Aoe\RestlerExamples\Domain\Model\Product}
+     * @return array {@type \Aoe\RestlerExamples\Domain\Model\Product}
+     * @throws ServiceUnavailableException
      */
     public function getProductsAsExtbaseObject($pageUid)
     {
@@ -86,6 +88,7 @@ class ProductController
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
      * @param integer $productId {@min 1}
      * @return Product {@type \Aoe\RestlerExamples\Domain\Model\Product}
+     * @throws ServiceUnavailableException
      */
     public function getProductAsExtbaseObject($pageUid, $productUid)
     {
@@ -107,6 +110,7 @@ class ProductController
      * @url GET extbase-model-with-none-public-properties/pages/{pageUid}/products
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
      * @return array {@type stdClass}
+     * @throws ServiceUnavailableException
      */
     public function getProductsAsNoneExtbaseObject($pageUid)
     {
@@ -137,6 +141,7 @@ class ProductController
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
      * @param integer $productId {@min 1}
      * @return stdClass
+     * @throws ServiceUnavailableException
      */
     public function getProductAsNoneExtbaseObject($pageUid, $productUid)
     {

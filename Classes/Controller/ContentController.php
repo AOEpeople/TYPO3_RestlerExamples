@@ -2,12 +2,13 @@
 namespace Aoe\RestlerExamples\Controller;
 
 use Aoe\Restler\System\TYPO3\Loader as TYPO3Loader;
+use TYPO3\CMS\Core\Error\Http\ServiceUnavailableException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2019 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -63,6 +64,7 @@ class ContentController
      * @param integer $pageId
      * @param integer $contentElementUid
      * @return string
+     * @throws ServiceUnavailableException
      */
     public function getContentElementByUidForAnyFeUser($pageId, $contentElementUid)
     {
@@ -73,7 +75,7 @@ class ContentController
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
         );
-        return $this->cObject->RECORDS($cConf);
+        return $this->cObject->cObjGetSingle('RECORDS', $cConf);
     }
 
     /**
@@ -90,6 +92,7 @@ class ContentController
      * @param integer $pageId
      * @param integer $contentElementUid
      * @return string
+     * @throws ServiceUnavailableException
      */
     public function getContentElementByUidForLoggedInFeUser($pageId, $contentElementUid)
     {
@@ -100,6 +103,6 @@ class ContentController
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
         );
-        return $this->cObject->RECORDS($cConf);
+        return $this->cObject->cObjGetSingle('RECORDS', $cConf);
     }
 }

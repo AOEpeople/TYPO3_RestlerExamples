@@ -6,7 +6,7 @@ use Luracast\Restler\RestException;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2019 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -114,7 +114,7 @@ class HttpStatusCodeController
      * @param string $name Name {@example Arul Kumaran}
      * @throws RestException 400 Invalid name
      * @throws RestException 500 Could not create resource
-     * @return integer
+     * @return array
      */
     public function createObject($name)
     {

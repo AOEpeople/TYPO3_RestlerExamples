@@ -9,8 +9,10 @@
     }
   ],
   "require": {
+    "php": "^7.0",
     "aoe/restler": "~3.1",
-    "typo3/cms-core": ">=7.6.0, <=8.7.99"
+    "typo3/cms-core": "^8.7",
+    "ext-json": "*"
   },
   "require-dev": {
     "nimut/testing-framework": "~3.0",
@@ -51,7 +53,11 @@
     ],
     "test:functional": [
       "[ -e .Build/bin/phpunit ] || composer update",
-      "TYPO3_PATH_ROOT=.Build/Web .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional"
+      "TYPO3_PATH_ROOT=.Build/Web .Build/bin/phpunit -c Functional/phpunit.xml Tests/Functional"
+    ],
+    "test:behat": [
+      "[ -e .Build/bin/behat ] || composer update",
+      ".Build/bin/behat -c Tests/Behavior/behat.yml -p default"
     ]
   },
   "extra": {

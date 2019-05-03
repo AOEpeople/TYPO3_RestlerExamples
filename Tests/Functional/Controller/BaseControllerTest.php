@@ -1,16 +1,14 @@
 <?php
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use Guzzle\Http\Client;
-use JsonSchema\Uri\UriRetriever;
-use JsonSchema\RefResolver;
+use GuzzleHttp\Client;
 use JsonSchema\Validator;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2019 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -31,28 +29,12 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-abstract class BaseControllerTest extends UnitTestCase
+abstract class BaseControllerTest extends FunctionalTestCase
 {
     /**
      * @var Client
      */
     protected $client;
-
-    /**
-     * set up objects
-     */
-    public function setUp()
-    {
-        $this->client = new Client();
-    }
-
-    /**
-     * clean up
-     */
-    public function tearDown()
-    {
-        unset($this->client);
-    }
 
     /**
      * @param string $jsonString
@@ -62,17 +44,10 @@ abstract class BaseControllerTest extends UnitTestCase
     {
         $data = json_decode($jsonString);
 
-        $retriever = new UriRetriever();
-        $schema = $retriever->retrieve(
-            'file://' . $jsonSchemaFile
-        );
-        $refResolver = new RefResolver($retriever);
-        $refResolver->resolve(
-            $schema,
-            'file://' . $jsonSchemaFile
-        );
-        $validator = new Validator();
-        $validator->check($data, $schema);
+        $validator = new Validator;
+        $validator->validate($data, (object)['$ref' => 'file://' . $jsonSchemaFile]);
+
+
         if (false === $validator->isValid()) {
             foreach ($validator->getErrors() as $error) {
                 $this->fail(sprintf('Property "%s" is not valid: %s', $error['property'], $error['message']));

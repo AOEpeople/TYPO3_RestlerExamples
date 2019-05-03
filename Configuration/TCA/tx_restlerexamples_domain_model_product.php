@@ -12,7 +12,7 @@ return array(
         ),
         'dividers2tabs' => true,
         'searchFields' => 'name,',
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('restler_examples') . 'Resources/Public/Icons/TCA/tx_restlerexamples_domain_model_product.gif'
+        'iconfile' => 'EXT:restler_examples/Resources/Public/Icons/TCA/tx_restlerexamples_domain_model_product.gif'
     ),
     'interface' => array(
         'showRecordFieldList' => 'name,description'

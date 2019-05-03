@@ -4,7 +4,7 @@ namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2019 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -94,7 +94,7 @@ class InternalApiAuthenticationController implements iAuthenticate
      * return dummy string, because we DON'T need that for our case (we use NO base-authentification via REST-API)
      *
      * @return string
-     * @see Luracast\Restler\iAuthenticate
+     * @see \Luracast\Restler\iAuthenticate
      */
     public function __getWWWAuthenticateString()
     {
