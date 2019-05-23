@@ -10,7 +10,8 @@
   ],
   "require": {
     "aoe/restler": "dev-feature/typo3-9-support",
-    "typo3/cms-core": ">=7.6.0, <=9.5.99"
+    "typo3/cms-core": ">=7.6.0, <=9.5.99",
+    "cweagans/composer-patches": "^1.6"
   },
   "require-dev": {
     "justinrainbow/json-schema": "1.5.*",
@@ -45,6 +46,11 @@
     "typo3/cms": {
       "web-dir": ".Build",
       "extension-key": "restler_examples"
+    },
+    "patches": {
+      "typo3/testing-framework": {
+        "Add more than GET https://github.com/TYPO3/testing-framework/pull/131": "Build/Patches/testing-framework-131.diff"
+      }
     }
   },
   "keywords": [
