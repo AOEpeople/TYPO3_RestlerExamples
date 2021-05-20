@@ -1,8 +1,6 @@
 <?php
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use JsonSchema\Uri\UriRetriever;
-use JsonSchema\RefResolver;
 use JsonSchema\Validator;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -40,14 +38,13 @@ abstract class BaseControllerTest extends FunctionalTestCase
     /**
      * set up objects
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->importDataSet(__DIR__ . '/../Fixtures/pages.xml');
 
         $this->setUpFrontendRootPage(1, ['EXT:restler_examples/Tests/Functional/Fixtures/Basic.ts']);
-
     }
 
     /**
@@ -58,23 +55,15 @@ abstract class BaseControllerTest extends FunctionalTestCase
     {
         $data = json_decode($jsonString);
 
-        $retriever = new UriRetriever();
-        $schema = $retriever->retrieve(
-            'file://' . $jsonSchemaFile
-        );
-        $refResolver = new RefResolver($retriever);
-        $refResolver->resolve(
-            $schema,
-            'file://' . $jsonSchemaFile
-        );
+        $jsonSchemaFile = sprintf('file://%s/../json-schema/%s', __DIR__, $jsonSchemaFile);
         $validator = new Validator();
-        $validator->check($data, $schema);
+        $validator->validate($data, (object)['$ref' => $jsonSchemaFile]);
         if (false === $validator->isValid()) {
             foreach ($validator->getErrors() as $error) {
-                $this->fail(sprintf('Property "%s" is not valid: %s', $error['property'], $error['message']));
+                self::fail(sprintf('Property "%s" is not valid: %s', $error['property'], $error['message']));
             }
         } else {
-            $this->assertTrue(true);
+            self::assertTrue(true);
         }
     }
 }

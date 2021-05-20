@@ -3,7 +3,6 @@ namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
-use Aoe\RestlerExamples\Tests\Functional\Controller\BaseControllerTest;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 
@@ -50,7 +49,7 @@ class CarControllerTest extends BaseControllerTest
             new InternalRequest('https://website.local/api/motorsport/cars/1/')
         );
 
-        $this->assertEquals(200, $response->getStatusCode());
+        self::assertEquals(200, $response->getStatusCode());
         $this->assertJsonSchema(
             (string)$response->getBody(),
             $this->getJsonSchemaPath() . 'car.json'
@@ -66,7 +65,7 @@ class CarControllerTest extends BaseControllerTest
             new InternalRequest('https://website.local/api/motorsport/cars/X/')
         );
 
-        $this->assertEquals(400, $response->getStatusCode());
+        self::assertEquals(400, $response->getStatusCode());
     }
 
     /**
@@ -96,7 +95,7 @@ class CarControllerTest extends BaseControllerTest
             (string)$response->getBody(),
             $this->getJsonSchemaPath() . 'car.json'
         );
-        $this->assertEquals(201, $response->getStatusCode());
+        self::assertEquals(201, $response->getStatusCode());
     }
 
     /**
