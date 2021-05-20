@@ -9,6 +9,8 @@
     }
   ],
   "require": {
+    "php": "^7.2",
+    "ext-json": "*",
     "aoe/restler": "dev-TYPO3V10",
     "typo3/cms-core": "^9.5 || ^10.4",
     "cweagans/composer-patches": "^1.7"
