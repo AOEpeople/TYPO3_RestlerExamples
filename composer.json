@@ -9,13 +9,13 @@
     }
   ],
   "require": {
-    "aoe/restler": "dev-feature/typo3-9-support",
-    "typo3/cms-core": ">=7.6.0, <=9.5.99",
-    "cweagans/composer-patches": "^1.6"
+    "aoe/restler": "dev-TYPO3V10",
+    "typo3/cms-core": "^9.5 || ^10.4",
+    "cweagans/composer-patches": "^1.7"
   },
   "require-dev": {
-    "justinrainbow/json-schema": "1.5.*",
-    "typo3/testing-framework": "^4"
+    "justinrainbow/json-schema": "^5.2",
+    "typo3/testing-framework": "^4.15 || ^6.8"
   },
   "repositories": [
     {
@@ -44,7 +44,8 @@
   },
   "extra": {
     "typo3/cms": {
-      "web-dir": ".Build",
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web",
       "extension-key": "restler_examples"
     },
     "patches": {
