@@ -1,13 +1,14 @@
 <?php
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use JsonSchema\Validator;
+use Aoe\RestlerExamples\Tests\Functional\TYPO3\SiteHandling\SiteBasedTestTrait;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use JsonSchema\Validator;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2021 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -30,9 +31,15 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 abstract class BaseControllerTest extends FunctionalTestCase
 {
+    use SiteBasedTestTrait;
+
     protected $testExtensionsToLoad = [
         'typo3conf/ext/restler',
         'typo3conf/ext/restler_examples'
+    ];
+
+    protected const LANGUAGE_PRESETS = [
+        'EN' => ['id' => 0, 'title' => 'English', 'locale' => 'en_US.UTF8', 'iso' => 'en', 'hrefLang' => 'en-US', 'direction' => ''],
     ];
 
     /**
@@ -44,7 +51,13 @@ abstract class BaseControllerTest extends FunctionalTestCase
 
         $this->importDataSet(__DIR__ . '/../Fixtures/pages.xml');
 
-        $this->setUpFrontendRootPage(1, ['EXT:restler_examples/Tests/Functional/Fixtures/Basic.ts']);
+        $this->writeSiteConfiguration(
+            'acme-com',
+            $this->buildSiteConfiguration(1, 'https://acme.com/'),
+            [
+                $this->buildDefaultLanguageConfiguration('EN', '/'),
+            ]
+        );
     }
 
     /**
@@ -55,9 +68,8 @@ abstract class BaseControllerTest extends FunctionalTestCase
     {
         $data = json_decode($jsonString);
 
-        $jsonSchemaFile = sprintf('file://%s/../json-schema/%s', __DIR__, $jsonSchemaFile);
         $validator = new Validator();
-        $validator->validate($data, (object)['$ref' => $jsonSchemaFile]);
+        $validator->validate($data, (object)['$ref' => 'file://' . realpath($jsonSchemaFile)]);
         if (false === $validator->isValid()) {
             foreach ($validator->getErrors() as $error) {
                 self::fail(sprintf('Property "%s" is not valid: %s', $error['property'], $error['message']));

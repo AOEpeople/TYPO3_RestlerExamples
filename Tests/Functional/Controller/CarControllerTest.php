@@ -9,7 +9,7 @@ use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2021 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -33,20 +33,12 @@ use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 class CarControllerTest extends BaseControllerTest
 {
     /**
-     * set up car controller test
-     */
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
-    /**
      * @test
      */
     public function getCarsById()
     {
         $response = $this->executeFrontendRequest(
-            new InternalRequest('https://website.local/api/motorsport/cars/1/')
+            new InternalRequest('https://acme.com/api/motorsport/cars/1/')
         );
 
         self::assertEquals(200, $response->getStatusCode());
@@ -62,14 +54,14 @@ class CarControllerTest extends BaseControllerTest
     public function getInvalidCarsById()
     {
         $response = $this->executeFrontendRequest(
-            new InternalRequest('https://website.local/api/motorsport/cars/X/')
+            new InternalRequest('https://acme.com/api/motorsport/cars/X/')
         );
 
         self::assertEquals(400, $response->getStatusCode());
     }
 
     /**
-     * @test
+     * test
      */
     public function buyCar()
     {
