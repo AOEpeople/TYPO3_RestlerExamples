@@ -1,7 +1,7 @@
 <?php
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use Aoe\RestlerExamples\Tests\Functional\TYPO3\SiteHandling\SiteBasedTestTrait;
+use TYPO3\CMS\Core\Tests\Functional\SiteHandling\SiteBasedTestTrait;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 use JsonSchema\Validator;
 

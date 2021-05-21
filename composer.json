@@ -12,8 +12,7 @@
         "php": "^7.2",
         "ext-json": "*",
         "aoe/restler": "dev-TYPO3V10",
-        "typo3/cms-core": "^10.4",
-        "cweagans/composer-patches": "^1.7"
+        "typo3/cms-core": "^10.4"
     },
     "require-dev": {
         "justinrainbow/json-schema": "^5.2",
@@ -33,6 +32,7 @@
     "autoload-dev": {
         "psr-4": {
             "Aoe\\RestlerExamples\\Tests\\": "Tests",
+            "TYPO3\\CMS\\Core\\Tests\\": ".Build/Web/typo3/sysext/core/Tests",
             "TYPO3\\JsonResponse\\": ".Build/vendor/typo3/testing-framework/Resources/Core/Functional/Extensions/json_response/Classes"
         }
     },
@@ -43,6 +43,10 @@
     "scripts": {
         "post-autoload-dump": [
             "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+        ],
+        "test:functional": [
+            "[ -e .Build/bin/phpunit ] || composer update --prefer-source",
+            ".Build/bin/phpunit --whitelist Classes --colors -c Tests/Functional/phpunit.xml Tests/Functional"
         ]
     },
     "extra": {

@@ -61,10 +61,12 @@ class CarControllerTest extends BaseControllerTest
     }
 
     /**
-     * test
+     * @test
      */
     public function buyCar()
     {
+        self::markTestSkipped("HTTP-Method POST is not supported in typo3/testing-framework without patching");
+
         $car = new Car();
         $car->id = 1;
         $car->manufacturer = new Manufacturer();
