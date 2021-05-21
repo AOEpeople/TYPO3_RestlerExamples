@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3: [ ^9.5, ^10.4 ]
+        typo3: [ ^10.4 ]
         php: [ '7.2', '7.3', '7.4' ]
         experimental: [false]
 
@@ -69,7 +69,7 @@ jobs:
           typo3DatabaseUsername: root
 
       - name: Upload coverage results to Scrutinizer
-        if: matrix.typo3 == '^8.7' && matrix.php == '7.2'
+        if: matrix.typo3 == '^10.4' && matrix.php == '7.2'
         run: |
           wget https://scrutinizer-ci.com/ocular.phar
           php ocular.phar code-coverage:upload --format=php-clover functional-coverage.clover
