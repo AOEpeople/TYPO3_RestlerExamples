@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
     public function configureRestler(Restler $restler)
     {
         // set german as supported language
-        //Defaults::$supportedLanguages = array('de');
+        //Defaults::$supportedLanguages = ['de'];
         //Defaults::$language = 'de';
         JsonFormat::$prettyPrint = true;
 

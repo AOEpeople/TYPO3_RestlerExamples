@@ -70,7 +70,7 @@ class CarControllerTest extends BaseControllerTest
         $car->manufacturer = new Manufacturer();
         $car->manufacturer->id = 1;
         $car->manufacturer->name = 'BMW';
-        $car->models = array('X1', 'X3', 'X5');
+        $car->models = ['X1', 'X3', 'X5'];
 
         $response = $this->executeFrontendRequest(
             new InternalRequest(

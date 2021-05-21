@@ -95,7 +95,7 @@ class Product extends AbstractEntity
      */
     private function renderDescriptionAsHtml()
     {
-        return $this->getCObject()->parseFunc($this->description, array(), '< lib.parseFunc_RTE');
+        return $this->getCObject()->parseFunc($this->description, [], '< lib.parseFunc_RTE');
     }
 
     /**

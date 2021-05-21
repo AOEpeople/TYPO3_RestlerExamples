@@ -72,11 +72,11 @@ class ContentController
     {
         $this->typo3Loader->initializeFrontEndRendering($pageId);
 
-        $cConf = array(
+        $cConf = [
             'tables' => 'tt_content',
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
-        );
+        ];
         return $this->cObject->RECORDS($cConf);
     }
 
@@ -99,11 +99,11 @@ class ContentController
     {
         $this->typo3Loader->initializeFrontEndRendering($pageId);
 
-        $cConf = array(
+        $cConf = [
             'tables' => 'tt_content',
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
-        );
+        ];
         return $this->cObject->RECORDS($cConf);
     }
 }

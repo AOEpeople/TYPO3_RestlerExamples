@@ -116,7 +116,7 @@ class ProductController
         // extbase-models or if you want to render URL's in your REST-API)
         $this->loader->initializeFrontEndRendering($pageUid);
 
-        $restProducts = array();
+        $restProducts = [];
         foreach ($this->productRepository->findAll() as $extbaseProduct) {
             /* @var $extbaseProduct Product */
             $restProduct = new stdClass();

@@ -47,12 +47,12 @@ class HttpStatusCodeController
      */
     public function getObjects()
     {
-        return array(
-            array('id' => 1, 'name' => 'object1'),
-            array('id' => 2, 'name' => 'object2'),
-            array('id' => 3, 'name' => 'object3'),
-            array('id' => 4, 'name' => 'object4')
-        );
+        return [
+            ['id' => 1, 'name' => 'object1'],
+            ['id' => 2, 'name' => 'object2'],
+            ['id' => 3, 'name' => 'object3'],
+            ['id' => 4, 'name' => 'object4']
+        ];
     }
 
     /**
@@ -61,23 +61,23 @@ class HttpStatusCodeController
      * Throw Exception (with detailed informations), when variable $id has NOT the value 1
      *
      * @url GET objects/{id}
-     * @throws RestException 404 Resource does not exists
-     *
      * @param integer $id
      * @return array
+     * @throws RestException 404 Resource does not exists
+     *
      */
     public function getObject($id)
     {
         if ($id === 1) {
-            return array('id' => $id, 'name' => 'tester');
+            return ['id' => $id, 'name' => 'tester'];
         }
 
-        $details = array(
-            'errors' => array(
-                array('code' => 1024, 'field' => 'id', 'message' => 'bliblablub'),
-                array('code' => 1024, 'field' => 'id', 'message' => 'bliblablub')
-            )
-        );
+        $details = [
+            'errors' => [
+                ['code' => 1024, 'field' => 'id', 'message' => 'bliblablub'],
+                ['code' => 1024, 'field' => 'id', 'message' => 'bliblablub']
+            ]
+        ];
 
         throw new RestException(404, 'id does not exists', $details);
     }
@@ -88,12 +88,12 @@ class HttpStatusCodeController
      * Throw Exception, when variable $parentId or $childId has NOT the value 1
      *
      * @url GET objects/{parentId}/subobjects/{childId}
-     * @throws RestException 404 ParentId does not exists
-     * @throws RestException 404 ChildId does not exists
-     *
      * @param integer $parentId
      * @param integer $childId
      * @return array
+     * @throws RestException 404 ChildId does not exists
+     *
+     * @throws RestException 404 ParentId does not exists
      */
     public function getSubObject($parentId, $childId)
     {
@@ -103,7 +103,7 @@ class HttpStatusCodeController
             throw new RestException(404, 'childId does not exists');
         }
 
-        return array('parentId' => $parentId, 'childId' => $childId, 'name' => 'tester');
+        return ['parentId' => $parentId, 'childId' => $childId, 'name' => 'tester'];
     }
 
     /**
@@ -115,18 +115,18 @@ class HttpStatusCodeController
      * @status 201
      *
      * @param string $name Name {@example Arul Kumaran}
-     * @throws RestException 400 Invalid name
-     * @throws RestException 500 Could not create resource
      * @return integer
+     * @throws RestException 500 Could not create resource
+     * @throws RestException 400 Invalid name
      */
     public function createObject($name)
     {
         if ($name === 'Felix') {
-            throw new RestException(400, 'invalid name', array('error_code' => 12002));
+            throw new RestException(400, 'invalid name', ['error_code' => 12002]);
         } elseif ($name === 'Thomas') {
-            throw new RestException(500, 'could not create resource', array('error_code' => 12004));
+            throw new RestException(500, 'could not create resource', ['error_code' => 12004]);
         } else {
-            return array('id' => 10000);
+            return ['id' => 10000];
         }
     }
 
@@ -136,18 +136,18 @@ class HttpStatusCodeController
      * Update object via REST-endpoint. Throw Exception, when variable $id has NOT the value 1
      *
      * @url PUT objects/{id}
-     * @throws RestException 500 Could not update resource
-     *
      * @param integer $id
      * @param string $name
      * @return array
+     * @throws RestException 500 Could not update resource
+     *
      */
     public function updateObject($id, $name)
     {
         if ($id !== 1) {
             throw new RestException(500);
         }
-        return array('id' => $id, 'name' => $name);
+        return ['id' => $id, 'name' => $name];
     }
 
     /**
@@ -160,8 +160,8 @@ class HttpStatusCodeController
      * @status 204
      *
      * @param integer $id
-     * @throws RestException 404 Could not delete resource
      * @return void
+     * @throws RestException 404 Could not delete resource
      */
     public function deleteObject($id)
     {

@@ -63,7 +63,7 @@ class InternalApiController
         $car = new Car();
         $car->manufacturer = $manufacturer;
         $car->id = $id;
-        $car->models = array('X3', 'X5', 'X7');
+        $car->models = ['X3', 'X5', 'X7'];
         return $car;
     }
 
