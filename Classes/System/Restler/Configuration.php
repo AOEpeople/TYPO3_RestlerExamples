@@ -72,8 +72,8 @@ class Configuration implements ConfigurationInterface
         $restler->addAPIClass(ProductController::class, 'api/extbase-examples');
         $restler->addAPIClass(CarControllerCache::class, 'api/typo3cache-examples');
 
-        $restler->addAPIClass(ExternalApiController::class, 'api/rest-api-client1');
-        $restler->addAPIClass(InternalApiController::class, 'api/rest-api-client2');
+        $restler->addAPIClass(ExternalApiController::class, 'api/rest-api-client-external');
+        $restler->addAPIClass(InternalApiController::class, 'api/rest-api-client-internal');
         $restler->addAuthenticationClass(InternalApiAuthenticationController::class);
 
         // add exception-handler (which logs exceptions)
