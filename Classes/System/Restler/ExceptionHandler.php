@@ -4,12 +4,13 @@ namespace Aoe\RestlerExamples\System\Restler;
 use Aoe\Restler\System\Restler\AbstractExceptionHandler;
 use Luracast\Restler\RestException;
 use Luracast\Restler\Restler;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2021 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -64,14 +65,14 @@ class ExceptionHandler extends AbstractExceptionHandler
          * If you need information, how to configure the framework, take a look at the documentation:
          * http://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/Logging/Configuration/Index.html#logging-configuration-writer
          *
-         * Per default, it seems, that TYPO3 logs the data in this file:
-         * htdocs/typo3temp/logs/typo3.log
+         * Per default TYPO3 logs the data in this file:
+         * htdocs/typo3temp/var/log/typo3_XXXXXXXXX.log
          */
         /** @var $logger \TYPO3\CMS\Core\Log\Logger */
-        $logger = GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+        $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
         $logger->warning($message);
 
-        // restler should dislay an error as output
+        // restler should display an error as output
         return false;
     }
 }
