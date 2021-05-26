@@ -1,11 +1,16 @@
 <?php
 namespace Aoe\RestlerExamples\Domain\Model;
 
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Site\Entity\NullSite;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 class Product extends AbstractEntity
 {
@@ -104,8 +109,7 @@ class Product extends AbstractEntity
     private function getCObject()
     {
         if (null === $this->cObject) {
-            $objectManager = new ObjectManager();
-            $this->cObject = $objectManager->get('TYPO3\\CMS\\Frontend\ContentObject\\ContentObjectRenderer');
+            $this->cObject = $this->initializeCObject();
         }
         return $this->cObject;
     }
@@ -115,12 +119,62 @@ class Product extends AbstractEntity
     private function getUriBuilder()
     {
         if (null === $this->uriBuilder) {
-            $objectManager = new ObjectManager();
-            /** @var ConfigurationManagerInterface $r */
-            $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
-            $configurationManager->setContentObject($objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'));
-            $this->uriBuilder = $objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
+            $this->initializeCObject();
+
+            $this->uriBuilder = GeneralUtility::makeInstance(ObjectManager::class)->get(UriBuilder::class);
         }
         return $this->uriBuilder;
+    }
+
+    /**
+     * @return ContentObjectRenderer
+     */
+    private function initializeCObject() {
+        $this->initializeTsfe();
+
+        /** @var ObjectManager $objectManager */
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        /** @var ContentObjectRenderer $contentObjectRenderer */
+        $contentObjectRenderer = $objectManager->get(ContentObjectRenderer::class);
+        /** @var ConfigurationManagerInterface $configurationManager */
+        $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
+        $configurationManager->setContentObject($contentObjectRenderer);
+
+        return $contentObjectRenderer;
+    }
+
+    /**
+     * @param integer $pageId
+     * @param integer $type
+     * @return TypoScriptFrontendController
+     */
+    private function initializeTsfe($pageId = 0, $type = 0)
+    {
+        if (class_exists(\TYPO3\CMS\Core\Site\Entity\NullSite::class)) {
+            $context = GeneralUtility::makeInstance(Context::class);
+            $nullSite = new NullSite();
+            $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+                TypoScriptFrontendController::class,
+                $context,
+                $nullSite,
+                $nullSite->getDefaultLanguage()
+            );
+            $GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance(PageRepository::class, $context);
+        } else {
+            if ($type > 0) {
+                $_GET['type'] = $type;
+            }
+            if (false === array_key_exists('TSFE', $GLOBALS)) {
+                $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+                    TypoScriptFrontendController::class,
+                    $GLOBALS['TYPO3_CONF_VARS'],
+                    $pageId,
+                    $type
+                );
+                $GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance(PageRepository::class);
+            }
+        }
+
+        return $GLOBALS['TSFE'];
     }
 }
