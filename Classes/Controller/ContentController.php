@@ -70,7 +70,7 @@ class ContentController
      */
     public function getContentElementByUidForAnyFeUser($pageId, $contentElementUid)
     {
-        $this->typo3Loader->initializeFrontEndRendering($pageId);
+        $this->typo3Loader->initializeFrontendRendering($pageId);
 
         $cConf = [
             'tables' => 'tt_content',
@@ -97,7 +97,7 @@ class ContentController
      */
     public function getContentElementByUidForLoggedInFeUser($pageId, $contentElementUid)
     {
-        $this->typo3Loader->initializeFrontEndRendering($pageId);
+        $this->typo3Loader->initializeFrontendRendering($pageId);
 
         $cConf = [
             'tables' => 'tt_content',
