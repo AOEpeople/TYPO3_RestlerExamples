@@ -2,6 +2,9 @@
 namespace Aoe\RestlerExamples\Controller;
 
 use Aoe\Restler\System\TYPO3\Loader as TYPO3Loader;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
@@ -48,12 +51,10 @@ class ContentController
     private $typo3Loader;
 
     /**
-     * @param ContentObjectRenderer $cObject
      * @param TYPO3Loader $typo3Loader
      */
-    public function __construct(ContentObjectRenderer $cObject, TYPO3Loader $typo3Loader)
+    public function __construct(TYPO3Loader $typo3Loader)
     {
-        $this->cObject = $cObject;
         $this->typo3Loader = $typo3Loader;
     }
 
@@ -70,14 +71,12 @@ class ContentController
      */
     public function getContentElementByUidForAnyFeUser($pageId, $contentElementUid)
     {
-        $this->typo3Loader->initializeFrontendRendering($pageId);
-
         $cConf = [
             'tables' => 'tt_content',
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
         ];
-        return $this->cObject->RECORDS($cConf);
+        return $this->getCObject($pageId)->cObjGetSingle('RECORDS', $cConf);
     }
 
     /**
@@ -97,13 +96,43 @@ class ContentController
      */
     public function getContentElementByUidForLoggedInFeUser($pageId, $contentElementUid)
     {
-        $this->typo3Loader->initializeFrontendRendering($pageId);
-
         $cConf = [
             'tables' => 'tt_content',
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
         ];
-        return $this->cObject->RECORDS($cConf);
+        return $this->getCObject($pageId)->cObjGetSingle('RECORDS', $cConf);
+    }
+
+    /**
+     * @param integer $pageId
+     * @return ContentObjectRenderer
+     */
+    private function getCObject($pageId)
+    {
+        if (null === $this->cObject) {
+            $this->cObject = $this->initializeCObject($pageId);
+        }
+        return $this->cObject;
+    }
+
+    /**
+     * @param integer $pageId
+     * @return ContentObjectRenderer
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
+    private function initializeCObject($pageId)
+    {
+        $this->typo3Loader->initializeFrontendRendering($pageId);
+
+        /** @var ObjectManager $objectManager */
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        /** @var ContentObjectRenderer $contentObjectRenderer */
+        $contentObjectRenderer = $objectManager->get(ContentObjectRenderer::class);
+        /** @var ConfigurationManagerInterface $configurationManager */
+        $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
+        $configurationManager->setContentObject($contentObjectRenderer);
+
+        return $contentObjectRenderer;
     }
 }
