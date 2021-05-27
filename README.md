@@ -1,11 +1,24 @@
 # TYPO3_RestlerExamples
-This is a TYPO3-Extension, which contains some examples, how to use/configure the [Restler Framework][LuracastRestler] (PHP ramework to create REST-APIs)
+This is a TYPO3-Extension, which contains some examples, how to use/configure the [Restler Framework][LuracastRestler] (PHP framework to create REST-APIs)
 in TYPO3 via the TYPO3-Extension [Restler][TYPO3_Restler]
 
-## Brief installation
+## Versions and Support
 
-### Using the TYPO3 Extension Repository
-You can download and install this extension from the [TER (TYPO3 Extension Repository)][RestlerExamples_TER]
+| Release  | TYPO3 | PHP   | Fixes will contain
+|---|---|---|---|
+| 10.x.y | 10.4 | 7.2 - 7.4 | Features, Bugfixes, Security Updates
+| 9.x.y  | 9.5  | 7.2 - 7.4 | Security Updates
+| 8.x.y  | 8.6  | 7.2 - 7.4 | End of life
+| 1.x.y  | 7.6  | 5.3 - 5.6 | End of life
+| 0.x.y  | 6.2  | 5.3 - 5.6 | End of life
+
+## Download / Installation
+
+You can download and install this extension from the [TER (TYPO3 Extension Repository)][RestlerExamples_TER] or use composer.
+
+```shell script
+composer require aoe/restler-examples
+```
 
 ### Using git
 
@@ -34,11 +47,10 @@ The documentation is available online at [docs.typo3.org][RestlerExamples_Docume
 
 ## Copyright / License
 
-Copyright: (c) 2017, AOE GmbH <dev@aoe.com>
+Copyright: (c) 2015 - 2021, AOE GmbH
 License: GPLv3, <http://www.gnu.org/licenses/gpl-3.0.en.html>
-
 
 [LuracastRestler]: https://github.com/Luracast/Restler
 [TYPO3_Restler]: https://github.com/AOEpeople/TYPO3_Restler
-[RestlerExamples_TER]: http://typo3.org/extensions/repository/view/restler_examples
-[RestlerExamples_Documentation]: https://docs.typo3.org/typo3cms/extensions/restler_examples/
+[RestlerExamples_TER]: https://extensions.typo3.org/extension/restler_examples
+[RestlerExamples_Documentation]: https://docs.typo3.org/typo3cms/extensions/restler_examples/stable/
