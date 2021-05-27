@@ -29,6 +29,16 @@ use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 use Luracast\Restler\RestException;
 
+/**
+ * Class InternalApiController
+ * @package Aoe\RestlerExamples\Controller\RestApiClientExamples
+ *
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("access")
+ * @IgnoreAnnotation("class")
+ * @IgnoreAnnotation("status")
+
+ */
 class InternalApiController
 {
     /**
@@ -53,7 +63,7 @@ class InternalApiController
         $car = new Car();
         $car->manufacturer = $manufacturer;
         $car->id = $id;
-        $car->models = array('X3', 'X5', 'X7');
+        $car->models = ['X3', 'X5', 'X7'];
         return $car;
     }
 

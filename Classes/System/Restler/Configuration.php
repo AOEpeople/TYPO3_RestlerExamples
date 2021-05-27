@@ -2,7 +2,16 @@
 namespace Aoe\RestlerExamples\System\Restler;
 
 use Aoe\Restler\System\Restler\ConfigurationInterface;
-use Luracast\Restler\Defaults;
+use Aoe\RestlerExamples\Controller\BeUserController;
+use Aoe\RestlerExamples\Controller\CarController;
+use Aoe\RestlerExamples\Controller\ContentController;
+use Aoe\RestlerExamples\Controller\ExtbaseExamples\ProductController;
+use Aoe\RestlerExamples\Controller\FeUserController;
+use Aoe\RestlerExamples\Controller\HttpStatusCodeController;
+use Aoe\RestlerExamples\Controller\RestApiClientExamples\ExternalApiController;
+use Aoe\RestlerExamples\Controller\RestApiClientExamples\InternalApiAuthenticationController;
+use Aoe\RestlerExamples\Controller\RestApiClientExamples\InternalApiController;
+use Aoe\RestlerExamples\Controller\Typo3CacheExamples\CarController as CarControllerCache;
 use Luracast\Restler\Format\JsonFormat;
 use Luracast\Restler\Restler;
 
@@ -47,25 +56,28 @@ class Configuration implements ConfigurationInterface
     public function configureRestler(Restler $restler)
     {
         // set german as supported language
-        //Defaults::$supportedLanguages = array('de');
+        //Defaults::$supportedLanguages = ['de'];
         //Defaults::$language = 'de';
         JsonFormat::$prettyPrint = true;
 
         $restler->setSupportedFormats('JsonFormat');
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\CarController', 'api/motorsport');
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\ContentController', 'api/shop');
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\FeUserController', 'api/shop');
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\HttpStatusCodeController', 'api/http-status-codes');
 
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\ExtbaseExamples\\ProductController', 'api/extbase-examples');
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\Typo3CacheExamples\\CarController', 'api/typo3cache-examples');
+        $restler->addAPIClass(CarController::class, 'api/motorsport');
+        $restler->addAPIClass(ContentController::class, 'api/shop');
+        $restler->addAPIClass(HttpStatusCodeController::class, 'api/http-status-codes');
 
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\ExternalApiController', 'api/rest-api-client');
-        $restler->addAPIClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\InternalApiController', 'api/rest-api-client');
-        $restler->addAuthenticationClass('Aoe\\RestlerExamples\\Controller\\RestApiClientExamples\\InternalApiAuthenticationController');
+        $restler->addAPIClass(FeUserController::class, 'api/fe-user');
+        $restler->addAPIClass(BeUserController::class, 'api/be-user');
+
+        $restler->addAPIClass(ProductController::class, 'api/extbase-examples');
+        $restler->addAPIClass(CarControllerCache::class, 'api/typo3cache-examples');
+
+        $restler->addAPIClass(ExternalApiController::class, 'api/rest-api-client-external');
+        $restler->addAPIClass(InternalApiController::class, 'api/rest-api-client-internal');
+        $restler->addAuthenticationClass(InternalApiAuthenticationController::class);
 
         // add exception-handler (which logs exceptions)
-        $restler->addErrorClass('Aoe\\RestlerExamples\\System\\Restler\\ExceptionHandler');
+        $restler->addErrorClass(ExceptionHandler::class);
 
         // add Event (restler supports several events - those events can be used for severeal purposes)
         /*

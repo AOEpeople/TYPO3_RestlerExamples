@@ -33,6 +33,13 @@ use Luracast\Restler\RestException;
 use Exception;
 use stdClass;
 
+/**
+ * Class ExternalApiController
+ * @package Aoe\RestlerExamples\Controller\RestApiClientExamples
+ *
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("status")
+ */
 class ExternalApiController
 {
     const HTTP_STATUS_CODE_BAD_REQUEST = 400;
@@ -67,13 +74,13 @@ class ExternalApiController
     public function getListOfCars()
     {
         try {
-            return array(
+            return [
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/1')),
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/2')),
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/3')),
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/4')),
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/5'))
-            );
+            ];
         } catch (RestApiRequestException $e) {
             $this->throwRestException(self::HTTP_STATUS_CODE_BAD_REQUEST, 1446132825, $e->getMessage(), $e);
         }
@@ -154,7 +161,7 @@ class ExternalApiController
      */
     private function throwRestException($httpStatusCode, $errorCode, $errorMessage, Exception $exception = null)
     {
-        $details = array('error_code' => $errorCode, 'error_message' => $errorMessage);
+        $details = ['error_code' => $errorCode, 'error_message' => $errorMessage];
         throw new RestException($httpStatusCode, null, $details, $exception);
     }
 

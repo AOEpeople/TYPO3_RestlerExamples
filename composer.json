@@ -1,36 +1,66 @@
 {
-  "name": "aoe/restler-examples",
-  "type": "typo3-cms-extension",
-  "description": "A TYPO3-Extension, which contains some examples, how to use/configure the restler-Framework (PHP REST-framework to create REST-API's, in TYPO3 via the TYPO3-Extension 'restler'",
-  "authors": [
-    {
-      "name": "AOE GmbH",
-      "email": "dev@aoe.com"
-    }
-  ],
-  "require": {
-    "aoe/restler": "^2.0",
-    "typo3/cms-core": ">=7.6.0, <=8.7.99"
-  },
-  "require-dev": {
-    "symfony/finder": "2.5.x-dev",
-    "guzzle/guzzle": "~3.9",
-    "behat/behat": "2.5.*@stable",
-    "bshaffer/oauth2-server-php": "v1.0",
-    "justinrainbow/json-schema": "1.5.*"
-  },
-  "autoload": {
-    "psr-4": {
-      "Aoe\\RestlerExamples\\": "Classes"
-    }
-  },
-  "replace": {
-    "restler_examples": "*"
-  },
-  "keywords": [
-    "TYPO3",
-    "Restler",
-    "REST",
-    "API"
-  ]
+    "name": "aoe/restler-examples",
+    "type": "typo3-cms-extension",
+    "description": "A TYPO3-Extension, which contains some examples, how to use/configure the restler-Framework (PHP REST-framework to create REST-API's, in TYPO3 via the TYPO3-Extension 'restler'",
+    "authors": [
+        {
+            "name": "AOE GmbH",
+            "email": "dev@aoe.com"
+        }
+    ],
+    "license": "GPL-3.0",
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "aoe/restler": "dev-TYPO3V10",
+        "typo3/cms-core": "^9.5 || ^10.4"
+    },
+    "require-dev": {
+        "justinrainbow/json-schema": "^5.2",
+        "typo3/testing-framework": "^4.15 || ^6.8"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/AOEpeople/Restler.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Aoe\\RestlerExamples\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Aoe\\RestlerExamples\\Tests\\": "Tests",
+            "TYPO3\\CMS\\Core\\Tests\\": ".Build/Web/typo3/sysext/core/Tests",
+            "TYPO3\\JsonResponse\\": ".Build/vendor/typo3/testing-framework/Resources/Core/Functional/Extensions/json_response/Classes"
+        }
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+        ],
+        "test:functional": [
+            "[ -e .Build/bin/phpunit ] || composer update --prefer-source",
+            ".Build/bin/phpunit --whitelist Classes --colors -c Tests/Functional/phpunit.xml Tests/Functional"
+        ]
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web",
+            "extension-key": "restler_examples"
+        }
+    },
+    "keywords": [
+        "TYPO3",
+        "Restler",
+        "REST",
+        "API"
+    ]
 }

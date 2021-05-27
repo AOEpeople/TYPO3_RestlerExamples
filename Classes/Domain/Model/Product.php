@@ -1,6 +1,8 @@
 <?php
 namespace Aoe\RestlerExamples\Domain\Model;
 
+use Aoe\Restler\System\TYPO3\Loader;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -95,7 +97,7 @@ class Product extends AbstractEntity
      */
     private function renderDescriptionAsHtml()
     {
-        return $this->getCObject()->parseFunc($this->description, array(), '< lib.parseFunc_RTE');
+        return $this->getCObject()->parseFunc($this->description, [], '< lib.parseFunc_RTE');
     }
 
     /**
@@ -104,8 +106,7 @@ class Product extends AbstractEntity
     private function getCObject()
     {
         if (null === $this->cObject) {
-            $objectManager = new ObjectManager();
-            $this->cObject = $objectManager->get('TYPO3\\CMS\\Frontend\ContentObject\\ContentObjectRenderer');
+            $this->cObject = $this->initializeCObject();
         }
         return $this->cObject;
     }
@@ -115,12 +116,29 @@ class Product extends AbstractEntity
     private function getUriBuilder()
     {
         if (null === $this->uriBuilder) {
-            $objectManager = new ObjectManager();
-            /** @var ConfigurationManagerInterface $r */
-            $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
-            $configurationManager->setContentObject($objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'));
-            $this->uriBuilder = $objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
+            $this->initializeCObject();
+
+            $this->uriBuilder = GeneralUtility::makeInstance(ObjectManager::class)->get(UriBuilder::class);
         }
         return $this->uriBuilder;
+    }
+
+    /**
+     * @return ContentObjectRenderer
+     */
+    private function initializeCObject() {
+        /** @var Loader $typo3Loader */
+        $typo3Loader = GeneralUtility::makeInstance(Loader::class);
+        $typo3Loader->initializeFrontendRendering();
+
+        /** @var ObjectManager $objectManager */
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        /** @var ContentObjectRenderer $contentObjectRenderer */
+        $contentObjectRenderer = $objectManager->get(ContentObjectRenderer::class);
+        /** @var ConfigurationManagerInterface $configurationManager */
+        $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
+        $configurationManager->setContentObject($contentObjectRenderer);
+
+        return $contentObjectRenderer;
     }
 }

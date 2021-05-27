@@ -33,6 +33,8 @@ use stdClass;
 /**
  * @package RestlerExamples
  * @subpackage Controller
+ *
+ * @IgnoreAnnotation("url")
  */
 class ProductController
 {
@@ -72,7 +74,7 @@ class ProductController
     {
         // initialize the frontend of TYPO3 (this is required when you e.g. want to use
         // extbase-models or if you want to render URL's in your REST-API)
-        $this->loader->initializeFrontEndRendering($pageUid);
+        $this->loader->initializeFrontendRendering($pageUid);
 
         return $this->productRepository->findAll();
     }
@@ -91,7 +93,7 @@ class ProductController
     {
         // initialize the frontend of TYPO3 (this is required when you e.g. want to use
         // extbase-models or if you want to render URL's in your REST-API)
-        $this->loader->initializeFrontEndRendering($pageUid);
+        $this->loader->initializeFrontendRendering($pageUid);
 
         return $this->productRepository->findOne($productUid);
     }
@@ -112,9 +114,9 @@ class ProductController
     {
         // initialize the frontend of TYPO3 (this is required when you e.g. want to use
         // extbase-models or if you want to render URL's in your REST-API)
-        $this->loader->initializeFrontEndRendering($pageUid);
+        $this->loader->initializeFrontendRendering($pageUid);
 
-        $restProducts = array();
+        $restProducts = [];
         foreach ($this->productRepository->findAll() as $extbaseProduct) {
             /* @var $extbaseProduct Product */
             $restProduct = new stdClass();
@@ -142,7 +144,7 @@ class ProductController
     {
         // initialize the frontend of TYPO3 (this is required when you e.g. want to use
         // extbase-models or if you want to render URL's in your REST-API)
-        $this->loader->initializeFrontEndRendering($pageUid);
+        $this->loader->initializeFrontendRendering($pageUid);
 
         $extbaseProduct = $this->productRepository->findOne($productUid);
         $restProduct = new stdClass();

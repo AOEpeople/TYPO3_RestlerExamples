@@ -1,6 +1,6 @@
 <?php
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'restler_examples',
     'description' => 'Examples for using Restler in TYPO3',
     'category' => 'example',
@@ -20,14 +20,14 @@ $EM_CONF[$_EXTKEY] = array(
     'clearCacheOnLoad' => 0,
     'lockType' => '',
     'version' => '1.0.0',
-    'constraints' => array(
-        'depends' => array(
-            'typo3' => '7.6.0-7.6.99',
-            'php' => '5.3.0',
-            'restler' => '2.0.0-0.0.0'
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
+    'constraints' => [
+        'depends' => [
+            'typo3' => '9.5.0-10.4.99',
+            'php' => '7.2.0-7.4.0',
+            'restler' => '4.0.0-0.0.0'
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
     '_md5_values_when_last_written' => '',
-);
+];

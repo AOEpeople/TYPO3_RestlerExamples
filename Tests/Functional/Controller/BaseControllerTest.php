@@ -1,16 +1,14 @@
 <?php
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use Guzzle\Http\Client;
-use JsonSchema\Uri\UriRetriever;
-use JsonSchema\RefResolver;
+use TYPO3\CMS\Core\Tests\Functional\SiteHandling\SiteBasedTestTrait;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 use JsonSchema\Validator;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2021 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -31,27 +29,35 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-abstract class BaseControllerTest extends UnitTestCase
+abstract class BaseControllerTest extends FunctionalTestCase
 {
-    /**
-     * @var Client
-     */
-    protected $client;
+    use SiteBasedTestTrait;
+
+    protected $testExtensionsToLoad = [
+        'typo3conf/ext/restler',
+        'typo3conf/ext/restler_examples'
+    ];
+
+    protected const LANGUAGE_PRESETS = [
+        'EN' => ['id' => 0, 'title' => 'English', 'locale' => 'en_US.UTF8', 'iso' => 'en', 'hrefLang' => 'en-US', 'direction' => ''],
+    ];
 
     /**
      * set up objects
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $this->client = new Client();
-    }
+        parent::setUp();
 
-    /**
-     * clean up
-     */
-    public function tearDown()
-    {
-        unset($this->client);
+        $this->importDataSet(__DIR__ . '/../Fixtures/pages.xml');
+
+        $this->writeSiteConfiguration(
+            'acme-com',
+            $this->buildSiteConfiguration(1, 'https://acme.com/'),
+            [
+                $this->buildDefaultLanguageConfiguration('EN', '/'),
+            ]
+        );
     }
 
     /**
@@ -62,23 +68,14 @@ abstract class BaseControllerTest extends UnitTestCase
     {
         $data = json_decode($jsonString);
 
-        $retriever = new UriRetriever();
-        $schema = $retriever->retrieve(
-            'file://' . $jsonSchemaFile
-        );
-        $refResolver = new RefResolver($retriever);
-        $refResolver->resolve(
-            $schema,
-            'file://' . $jsonSchemaFile
-        );
         $validator = new Validator();
-        $validator->check($data, $schema);
+        $validator->validate($data, (object)['$ref' => 'file://' . realpath($jsonSchemaFile)]);
         if (false === $validator->isValid()) {
             foreach ($validator->getErrors() as $error) {
-                $this->fail(sprintf('Property "%s" is not valid: %s', $error['property'], $error['message']));
+                self::fail(sprintf('Property "%s" is not valid: %s', $error['property'], $error['message']));
             }
         } else {
-            $this->assertTrue(true);
+            self::assertTrue(true);
         }
     }
 }

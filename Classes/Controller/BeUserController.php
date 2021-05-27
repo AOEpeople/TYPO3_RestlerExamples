@@ -6,7 +6,7 @@ use Luracast\Restler\RestException;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2021 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -35,22 +35,22 @@ use Luracast\Restler\RestException;
  * @IgnoreAnnotation("access")
  * @IgnoreAnnotation("class")
  */
-class FeUserController
+class BeUserController
 {
     /**
      * Test GET-Method with protected REST-API-endpoint
      *
      * API-Endpoint is only callable, when TYPO3-Frontend-user is logged-in
      *
-     * @url GET customer/self
+     * @url GET admin/self
      * @access protected
-     * @class Aoe\Restler\Controller\FeUserAuthenticationController {@checkAuthentication true}
+     * @class Aoe\Restler\Controller\BeUserAuthenticationController {@checkAuthentication true}
      *
      * @return array
-     * @throws RestException 401 frontend-user is not logged-in
+     * @throws RestException 401 backend-user is not logged-in
      */
-    public function getDataOfLoggedInFeUser()
+    public function getDataOfLoggedInBeUser()
     {
-        return $GLOBALS['TSFE']->fe_user->user;
+        return $GLOBALS['BE_USER'];
     }
 }

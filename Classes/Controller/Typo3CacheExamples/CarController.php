@@ -33,6 +33,10 @@ use Luracast\Restler\RestException;
 /**
  * @package RestlerExamples
  * @subpackage Controller
+ *
+ * @IgnoreAnnotation("url")
+ * @IgnoreAnnotation("restler_typo3cache_expires")
+ * @IgnoreAnnotation("restler_typo3cache_tags")
  */
 class CarController
 {
@@ -82,7 +86,7 @@ class CarController
         $car = new Car();
         $car->manufacturer = $manufacturer;
         $car->id = $id;
-        $car->models = array('X3', 'X5', 'X7');
+        $car->models = ['X3', 'X5', 'X7'];
         return $car;
     }
 
