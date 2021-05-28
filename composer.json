@@ -8,6 +8,7 @@
       "email": "dev@aoe.com"
     }
   ],
+  "license": "GPL-3.0",
   "require": {
     "php": "^7.2",
     "ext-json": "*",
@@ -15,12 +16,12 @@
     "typo3/cms-core": "^8.7"
   },
   "require-dev": {
-    "nimut/testing-framework": "~3.0",
-    "symfony/finder": "~2.3 || ~3.0 || ~4.0",
-    "guzzlehttp/guzzle": "^6.2",
-    "behat/behat": "3.4.*",
+    "nimut/testing-framework": "^5.2",
+    "symfony/finder": "^2.3 || ^3.0 || ^4.0",
+    "guzzlehttp/guzzle": "^6.5",
+    "behat/behat": "^3.8",
     "bshaffer/oauth2-server-php": "v1.11.1",
-    "justinrainbow/json-schema": "5.2.*"
+    "justinrainbow/json-schema": "^5.2"
   },
   "repositories": [
     {
@@ -59,11 +60,12 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "3.1.1-dev"
+      "dev-master": "8.1.0-dev"
     },
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/Web"
+      "web-dir": ".Build/Web",
+      "extension-key": "restler_examples"
     }
   },
   "keywords": [

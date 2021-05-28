@@ -2,7 +2,7 @@
 
 default:
     autoload:
-        '': %paths.base%/Bootstrap
+        '': '%paths.base%/Bootstrap'
 
     # disable gherkin-file-cache (which can create problems, when cache is activated and we modify our behat-tests)
     gherkin:
@@ -10,7 +10,7 @@ default:
 
     suites:
         default:
-            paths: [%paths.base%/Features]
+            paths: ['%paths.base%/Features']
             contexts:
                 - RestContext:
                       parameters:
