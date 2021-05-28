@@ -13,7 +13,8 @@
         "php": "^7.2",
         "ext-json": "*",
         "aoe/restler": "^9.0",
-        "typo3/cms-core": "^9.5"
+        "typo3/cms-core": "^9.5",
+        "cweagans/composer-patches": "^1.6"
     },
     "require-dev": {
         "justinrainbow/json-schema": "^5.2",
@@ -64,6 +65,11 @@
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
             "web-dir": ".Build/Web",
             "extension-key": "restler_examples"
+        },
+        "patches": {
+            "typo3/testing-framework": {
+                "Add more than GET https://github.com/TYPO3/testing-framework/pull/131": "Build/Patches/testing-framework-131.diff"
+            }
         }
     },
     "keywords": [
