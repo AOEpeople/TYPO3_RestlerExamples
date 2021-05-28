@@ -1,4 +1,7 @@
 # TYPO3_RestlerExamples
+
+[![Tests](https://github.com/AOEpeople/TYPO3_RestlerExamples/actions/workflows/tests.yml/badge.svg?branch=TYPO3V9)](https://github.com/AOEpeople/TYPO3_RestlerExamples/actions/workflows/tests.yml)
+
 This is a TYPO3-Extension, which contains some examples, how to use/configure the [Restler Framework][LuracastRestler] (PHP framework to create REST-APIs)
 in TYPO3 via the TYPO3-Extension [Restler][TYPO3_Restler]
 
