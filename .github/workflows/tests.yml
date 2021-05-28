@@ -3,12 +3,10 @@ name: Tests
 on:
   push:
     branches:
-      - '!TYPO3V8'
-      - '!TYPO3V9'
+      - 'TYPO3V9'
   pull_request:
     branches:
-      - '!TYPO3V8'
-      - '!TYPO3V9'
+      - 'TYPO3V9'
 
 jobs:
   build:
@@ -18,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3: [ ^10.4 ]
+        typo3: [ ^9.5 ]
         php: [ '7.2', '7.3', '7.4' ]
         experimental: [false]
 
@@ -58,7 +56,7 @@ jobs:
         run: |
           export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
           .Build/bin/phpunit --whitelist Classes --colors -c $FUNCTIONAL_XML Tests/Functional
-        if: matrix.typo3 != '^10.4'
+        if: matrix.typo3 != '^9.5' || matrix.php != '7.2'
         env:
           typo3DatabaseHost: 127.0.0.1
           typo3DatabaseName: typo3
@@ -69,7 +67,7 @@ jobs:
         run: |
           export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
           .Build/bin/phpunit --whitelist Classes --coverage-clover=functional-coverage.clover --colors -c $FUNCTIONAL_XML Tests/Functional
-        if: matrix.typo3 == '^10.4'
+        if: matrix.typo3 == '^9.5' && matrix.php == '7.2'
         env:
           typo3DatabaseHost: 127.0.0.1
           typo3DatabaseName: typo3
