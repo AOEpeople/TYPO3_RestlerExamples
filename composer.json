@@ -56,6 +56,12 @@
     "test:behat": [
       "[ -e .Build/bin/behat ] || composer update",
       ".Build/bin/behat -c Tests/Behavior/behat.yml -p default"
+    ],
+    "extension-release": [
+      "rm -rf .Build",
+      "rm -rf Tests/",
+      "rm .gitignore",
+      "rm .scrutinizer.yml"
     ]
   },
   "extra": {
