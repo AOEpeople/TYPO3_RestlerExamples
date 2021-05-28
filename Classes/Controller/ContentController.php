@@ -10,7 +10,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
+ *  (c) 2021 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -67,7 +67,7 @@ class ContentController
      *
      * @param integer $pageId
      * @param integer $contentElementUid
-     * @return string
+     * @return array
      */
     public function getContentElementByUidForAnyFeUser($pageId, $contentElementUid)
     {
@@ -76,7 +76,10 @@ class ContentController
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
         ];
-        return $this->getCObject($pageId)->cObjGetSingle('RECORDS', $cConf);
+
+        return [
+            'content' => $this->getCObject($pageId)->cObjGetSingle('RECORDS', $cConf)
+        ];
     }
 
     /**
@@ -92,7 +95,7 @@ class ContentController
      *
      * @param integer $pageId
      * @param integer $contentElementUid
-     * @return string
+     * @return array
      */
     public function getContentElementByUidForLoggedInFeUser($pageId, $contentElementUid)
     {
@@ -101,7 +104,9 @@ class ContentController
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
         ];
-        return $this->getCObject($pageId)->cObjGetSingle('RECORDS', $cConf);
+        return [
+            'content' => $this->getCObject($pageId)->cObjGetSingle('RECORDS', $cConf)
+        ];
     }
 
     /**
@@ -128,7 +133,7 @@ class ContentController
         /** @var ObjectManager $objectManager */
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         /** @var ContentObjectRenderer $contentObjectRenderer */
-        $contentObjectRenderer = $objectManager->get(ContentObjectRenderer::class);
+        $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class, $GLOBALS['TSFE']);
         /** @var ConfigurationManagerInterface $configurationManager */
         $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
         $configurationManager->setContentObject($contentObjectRenderer);
