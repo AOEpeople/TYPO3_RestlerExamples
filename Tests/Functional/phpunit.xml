@@ -1,30 +1,25 @@
-<?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         backupGlobals="true"
-         bootstrap="../../.Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTestsBootstrap.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertWarningsToExceptions="true"
-         forceCoversAnnotation="false"
-         stopOnError="false"
-         stopOnFailure="false"
-         stopOnIncomplete="false"
-         stopOnSkipped="false"
-         verbose="false"
-         beStrictAboutTestsThatDoNotTestAnything="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+<phpunit
+    backupGlobals="true"
+    bootstrap="../../.Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTestsBootstrap.php"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertWarningsToExceptions="true"
+    forceCoversAnnotation="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    verbose="false"
+    beStrictAboutTestsThatDoNotTestAnything="false"
 >
-    <coverage>
-        <include>
-            <directory suffix=".php">../Classes</directory>
-        </include>
-    </coverage>
     <testsuites>
         <testsuite name="restler_examples">
             <directory suffix="Test.php">./</directory>
         </testsuite>
     </testsuites>
-    <php>
-        <env name="typo3DatabaseDriver" value="pdo_sqlite"/>
-    </php>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../Classes</directory>
+        </whitelist>
+    </filter>
 </phpunit>
