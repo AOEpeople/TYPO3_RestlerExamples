@@ -60,8 +60,7 @@
     "extension-release": [
       "rm -rf .Build",
       "rm -rf Tests/",
-      "rm .gitignore",
-      "rm .scrutinizer.yml"
+      "rm .gitignore"
     ]
   },
   "extra": {
