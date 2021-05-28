@@ -45,6 +45,7 @@ class FeUserController
      * @url GET customer/self
      * @access protected
      * @class Aoe\Restler\Controller\FeUserAuthenticationController {@checkAuthentication true}
+     * @class Aoe\Restler\Controller\FeUserAuthenticationController {@argumentNameOfPageId pageId}
      *
      * @return array
      * @throws RestException 401 frontend-user is not logged-in
