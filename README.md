@@ -25,7 +25,7 @@ composer require aoe/restler-examples
 
 ### Using git
 
-Download the latest version from Github by clone the repository:
+Download the latest version from GitHub by cloning the repository:
 
 ```bash
 git clone https://github.com/AOEpeople/TYPO3_RestlerExamples.git restler_examples
@@ -37,9 +37,6 @@ composer install
 ```
 
 Activate the restler_example extension in the Extension Manager.
-
-Adapt the settings for the restler extension in the Extension Manager.
-Add the extension key restler_example at the end of the "TYPO3-Extensions with required ext_localconf.php-files" input field.
 
 ## Usage
 Open http://www.example.local/api_explorer/ to see all REST-API endpoints.
