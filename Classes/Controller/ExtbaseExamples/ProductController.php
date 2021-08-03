@@ -68,7 +68,7 @@ class ProductController
      *
      * @url GET extbase-model-with-public-properties/pages/{pageUid}/products/
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
-     * @return Array {@type \Aoe\RestlerExamples\Domain\Model\Product}
+     * @return array {@type Product}
      */
     public function getProductsAsExtbaseObject($pageUid)
     {
@@ -87,7 +87,7 @@ class ProductController
      * @url GET extbase-model-with-public-properties/pages/{pageUid}/products/{productUid}
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
      * @param integer $productId {@min 1}
-     * @return Product {@type \Aoe\RestlerExamples\Domain\Model\Product}
+     * @return Product {@type Product}
      */
     public function getProductAsExtbaseObject($pageUid, $productUid)
     {
