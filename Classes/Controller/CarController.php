@@ -44,6 +44,38 @@ class CarController
      *
      * API-Endpoint is always callable
      *
+     * @url GET cars
+     *
+     * @return array {@type \Aoe\RestlerExamples\Domain\Model\Car}
+     */
+    public function getCars()
+    {
+        $manufacturer1 = new Manufacturer();
+        $manufacturer1->id = 1;
+        $manufacturer1->name = 'BMW';
+
+        $car1 = new Car();
+        $car1->manufacturer = $manufacturer1;
+        $car1->id = 1;
+        $car1->models = ['X3', 'X5', 'X7'];
+
+        $manufacturer2 = new Manufacturer();
+        $manufacturer2->id = 2;
+        $manufacturer2->name = 'Audi';
+
+        $car2 = new Car();
+        $car2->manufacturer = $manufacturer2;
+        $car2->id = 2;
+        $car2->models = ['A1', 'A3', 'A6'];
+
+        return [$car1, $car2];
+    }
+
+    /**
+     * Test GET-Method with public REST-API-endpoint
+     *
+     * API-Endpoint is always callable
+     *
      * @url GET cars/{id}
      *
      * @param integer $id
