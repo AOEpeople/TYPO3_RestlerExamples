@@ -10,10 +10,10 @@
     ],
     "license": "GPL-3.0",
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "ext-json": "*",
         "aoe/restler": "^10.0",
-        "typo3/cms-core": "^10.4"
+        "typo3/cms-core": "^10.4 | ^11.5"
     },
     "require-dev": {
         "justinrainbow/json-schema": "^5.2",
@@ -39,7 +39,11 @@
     },
     "config": {
         "vendor-dir": ".Build/vendor",
-        "bin-dir": ".Build/bin"
+        "bin-dir": ".Build/bin",
+        "allow-plugins": {
+            "typo3/cms-composer-installers": false,
+            "typo3/class-alias-loader": false
+        }
     },
     "scripts": {
         "post-autoload-dump": [
@@ -57,7 +61,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "10.1.0-dev"
+            "dev-master": "10.2.0-dev"
         },
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
