@@ -20,9 +20,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3: [ ^10.4 ]
+        typo3: [ ^10.4, ^11.5 ]
         php: [ '7.2', '7.3', '7.4' ]
         experimental: [false]
+        include:
+          - typo3: ^11.5
+            php: '8.0'
+        exclude:
+          - typo3: ^11.5
+            php: '7.2'
+          - typo3: ^11.5
+            php: '7.3'
 
     continue-on-error: ${{ matrix.experimental }}
 
@@ -60,7 +68,7 @@ jobs:
         run: |
           export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
           .Build/bin/phpunit --whitelist Classes --colors -c $FUNCTIONAL_XML Tests/Functional
-        if: matrix.typo3 != '^10.4'
+        if: matrix.typo3 != '^11.5'
         env:
           typo3DatabaseHost: 127.0.0.1
           typo3DatabaseName: typo3
@@ -71,7 +79,7 @@ jobs:
         run: |
           export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
           .Build/bin/phpunit --whitelist Classes --coverage-clover=functional-coverage.clover --colors -c $FUNCTIONAL_XML Tests/Functional
-        if: matrix.typo3 == '^10.4'
+        if: matrix.typo3 == '^11.5' && matrix.php = '7.4'
         env:
           typo3DatabaseHost: 127.0.0.1
           typo3DatabaseName: typo3
