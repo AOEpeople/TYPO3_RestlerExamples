@@ -71,7 +71,7 @@ jobs:
         run: |
           export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
           .Build/bin/phpunit --whitelist Classes --colors -c $FUNCTIONAL_XML Tests/Functional
-        if: matrix.typo3 != '^11.5'
+        if: matrix.typo3 != '^11.5' && matrix.php != '7.4'
         env:
           typo3DatabaseHost: 127.0.0.1
           typo3DatabaseName: typo3
