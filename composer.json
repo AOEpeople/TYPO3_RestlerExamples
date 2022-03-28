@@ -10,9 +10,9 @@
     ],
     "license": "GPL-3.0",
     "require": {
-        "php": "^7.4",
+        "php": "^7.2 || ^8.0",
         "ext-json": "*",
-        "aoe/restler": "^10.0",
+        "aoe/restler": "dev-feature/upgrade-luracast-restler-v5",
         "typo3/cms-core": "^10.4 | ^11.5"
     },
     "require-dev": {
@@ -74,5 +74,6 @@
         "Restler",
         "REST",
         "API"
-    ]
+    ],
+    "minimum-stability": "dev"
 }
