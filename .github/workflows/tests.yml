@@ -26,11 +26,14 @@ jobs:
         include:
           - typo3: ^11.5
             php: '8.0'
+            experimental: false
         exclude:
           - typo3: ^11.5
             php: '7.2'
+            experimental: false
           - typo3: ^11.5
             php: '7.3'
+            experimental: false
 
     continue-on-error: ${{ matrix.experimental }}
 
