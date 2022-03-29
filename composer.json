@@ -54,6 +54,7 @@
             ".Build/bin/phpunit --whitelist Classes --colors -c Tests/Functional/phpunit.xml Tests/Functional"
         ],
         "extension-release": [
+            "rm -rf .github",
             "rm -rf .Build",
             "rm -rf Tests/",
             "rm .gitignore"
