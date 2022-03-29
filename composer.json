@@ -54,6 +54,7 @@
             ".Build/bin/phpunit --whitelist Classes --colors -c Tests/Functional/phpunit.xml Tests/Functional"
         ],
         "extension-release": [
+            "rm -rf .github",
             "rm -rf .Build",
             "rm -rf Tests/",
             "rm .gitignore"
@@ -61,7 +62,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "10.2.0-dev"
+            "dev-master": "10.1.0-dev"
         },
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
