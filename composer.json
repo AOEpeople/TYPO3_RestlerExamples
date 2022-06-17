@@ -84,13 +84,14 @@
         "extension-release": [
             "rm -rf .github",
             "rm -rf .Build",
+            "rm -rf .code-quality",
             "rm -rf Tests/",
             "rm .gitignore"
         ]
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "10.2.0-dev"
+            "dev-master": "10.1.x-dev"
         },
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
