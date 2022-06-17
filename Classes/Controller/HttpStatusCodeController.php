@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Controller;
 
 use Luracast\Restler\RestException;
@@ -51,7 +52,7 @@ class HttpStatusCodeController
             ['id' => 1, 'name' => 'object1'],
             ['id' => 2, 'name' => 'object2'],
             ['id' => 3, 'name' => 'object3'],
-            ['id' => 4, 'name' => 'object4']
+            ['id' => 4, 'name' => 'object4'],
         ];
     }
 
@@ -64,7 +65,6 @@ class HttpStatusCodeController
      * @param integer $id
      * @return array
      * @throws RestException 404 Resource does not exists
-     *
      */
     public function getObject($id)
     {
@@ -75,8 +75,8 @@ class HttpStatusCodeController
         $details = [
             'errors' => [
                 ['code' => 1024, 'field' => 'id', 'message' => 'bliblablub'],
-                ['code' => 1024, 'field' => 'id', 'message' => 'bliblablub']
-            ]
+                ['code' => 1024, 'field' => 'id', 'message' => 'bliblablub'],
+            ],
         ];
 
         throw new RestException(404, 'id does not exists', $details);
@@ -125,9 +125,8 @@ class HttpStatusCodeController
             throw new RestException(400, 'invalid name', ['error_code' => 12002]);
         } elseif ($name === 'Thomas') {
             throw new RestException(500, 'could not create resource', ['error_code' => 12004]);
-        } else {
-            return ['id' => 10000];
         }
+        return ['id' => 10000];
     }
 
     /**
@@ -140,7 +139,6 @@ class HttpStatusCodeController
      * @param string $name
      * @return array
      * @throws RestException 500 Could not update resource
-     *
      */
     public function updateObject($id, $name)
     {
@@ -160,7 +158,6 @@ class HttpStatusCodeController
      * @status 204
      *
      * @param integer $id
-     * @return void
      * @throws RestException 404 Could not delete resource
      */
     public function deleteObject($id)

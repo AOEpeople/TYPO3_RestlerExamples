@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Domain\Model;
 
 use Aoe\Restler\System\TYPO3\Loader;
@@ -11,15 +12,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class Product extends AbstractEntity
 {
-    /**
-     * @var ContentObjectRenderer
-     */
-    private $cObject;
-    /**
-     * @var UriBuilder
-     */
-    private $uriBuilder;
-
     /**
      * @var int The uid of the record. The uid is only unique in the context of the database table.
      */
@@ -36,6 +28,14 @@ class Product extends AbstractEntity
      * @var string
      */
     public $name;
+    /**
+     * @var ContentObjectRenderer
+     */
+    private $cObject;
+    /**
+     * @var UriBuilder
+     */
+    private $uriBuilder;
 
     /**
      * overwrite parent method, so that we can override the following properties:
@@ -46,7 +46,8 @@ class Product extends AbstractEntity
      * @param mixed $propertyValue
      * @return boolean
      */
-    public function _setProperty($propertyName, $propertyValue) {
+    public function _setProperty($propertyName, $propertyValue)
+    {
         $result = parent::_setProperty($propertyName, $propertyValue);
 
         if ($propertyName === 'detailsPage') {
@@ -89,7 +90,7 @@ class Product extends AbstractEntity
         return $this->getUriBuilder()
             ->setAbsoluteUriScheme('http')
             ->setCreateAbsoluteUri(true)
-            ->setTargetPageUid((integer) $this->detailsPage)
+            ->setTargetPageUid((int) $this->detailsPage)
             ->buildFrontendUri();
     }
     /**
@@ -97,7 +98,8 @@ class Product extends AbstractEntity
      */
     private function renderDescriptionAsHtml()
     {
-        return $this->getCObject()->parseFunc($this->description, [], '< lib.parseFunc_RTE');
+        return $this->getCObject()
+            ->parseFunc($this->description, [], '< lib.parseFunc_RTE');
     }
 
     /**
@@ -105,7 +107,7 @@ class Product extends AbstractEntity
      */
     private function getCObject()
     {
-        if (null === $this->cObject) {
+        if ($this->cObject === null) {
             $this->cObject = $this->initializeCObject();
         }
         return $this->cObject;
@@ -115,7 +117,7 @@ class Product extends AbstractEntity
      */
     private function getUriBuilder()
     {
-        if (null === $this->uriBuilder) {
+        if ($this->uriBuilder === null) {
             $this->initializeCObject();
 
             $this->uriBuilder = GeneralUtility::makeInstance(ObjectManager::class)->get(UriBuilder::class);
@@ -126,7 +128,8 @@ class Product extends AbstractEntity
     /**
      * @return ContentObjectRenderer
      */
-    private function initializeCObject() {
+    private function initializeCObject()
+    {
         /** @var Loader $typo3Loader */
         $typo3Loader = GeneralUtility::makeInstance(Loader::class);
         $typo3Loader->initializeFrontendRendering();

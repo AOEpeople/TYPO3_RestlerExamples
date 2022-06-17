@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Controller\ExtbaseExamples;
 
 use Aoe\RestlerExamples\Domain\Model\Product;
@@ -86,7 +87,7 @@ class ProductController
      *
      * @url GET extbase-model-with-public-properties/pages/{pageUid}/products/{productUid}
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
-     * @param integer $productId {@min 1}
+     * @param integer $productUid {@min 1}
      * @return Product {@type Product}
      */
     public function getProductAsExtbaseObject($pageUid, $productUid)
@@ -118,7 +119,7 @@ class ProductController
 
         $restProducts = [];
         foreach ($this->productRepository->findAll() as $extbaseProduct) {
-            /* @var $extbaseProduct Product */
+            /** @var Product $extbaseProduct */
             $restProduct = new stdClass();
             $restProduct->uid = $extbaseProduct->getUid();
             $restProduct->name = $extbaseProduct->getName();
@@ -137,7 +138,7 @@ class ProductController
      *
      * @url GET extbase-model-with-none-public-properties/pages/{pageUid}/products/{productUid}
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
-     * @param integer $productId {@min 1}
+     * @param integer $productUid {@min 1}
      * @return stdClass
      */
     public function getProductAsNoneExtbaseObject($pageUid, $productUid)

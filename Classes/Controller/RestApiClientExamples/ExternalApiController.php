@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 /***************************************************************
@@ -42,7 +43,7 @@ use stdClass;
  */
 class ExternalApiController
 {
-    const HTTP_STATUS_CODE_BAD_REQUEST = 400;
+    public const HTTP_STATUS_CODE_BAD_REQUEST = 400;
 
     /**
      * @var RestApiClient
@@ -79,7 +80,7 @@ class ExternalApiController
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/2')),
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/3')),
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/4')),
-                $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/5'))
+                $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/5')),
             ];
         } catch (RestApiRequestException $e) {
             $this->throwRestException(self::HTTP_STATUS_CODE_BAD_REQUEST, 1446132825, $e->getMessage(), $e);
@@ -105,7 +106,7 @@ class ExternalApiController
     {
         try {
             // 1. call REST-API - REST-API will return a stdClass-object, which contains the car-data
-            $carData = $this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/'.$id);
+            $carData = $this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/' . $id);
 
             // 2. do reconstitution (create 'real' objects on base of the stdClass-object)
             return $this->convertDataToCarObject($carData);
@@ -146,7 +147,7 @@ class ExternalApiController
 
             // 2. do reconstitution (create 'real' objects on base of the stdClass-object)
             return $this->convertDataToCarObject($carData);
-        } catch(RestApiRequestException $e) {
+        } catch (RestApiRequestException $e) {
             $this->throwRestException(self::HTTP_STATUS_CODE_BAD_REQUEST, 1446132826, $e->getMessage(), $e);
         }
     }
