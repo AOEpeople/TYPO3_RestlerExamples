@@ -1,10 +1,10 @@
 <?php
+
 namespace Aoe\RestlerExamples\Controller\Typo3CacheExamples;
 
 use Aoe\Restler\System\TYPO3\Cache;
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
-use Luracast\Restler\RestException;
 
 /***************************************************************
  *  Copyright notice
@@ -99,6 +99,6 @@ class CarController
     public function flushCacheById($tag)
     {
         $this->cache->flushByTag($tag);
-        return 'caches, which are tagged with tag "'.$tag.'", are flushed!';
+        return 'caches, which are tagged with tag "' . $tag . '", are flushed!';
     }
 }

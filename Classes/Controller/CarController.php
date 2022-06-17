@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Controller;
 
 use Aoe\RestlerExamples\Domain\Model\Car;

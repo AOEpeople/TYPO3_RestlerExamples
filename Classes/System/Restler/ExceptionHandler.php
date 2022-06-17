@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\System\Restler;
 
 use Aoe\Restler\System\Restler\AbstractExceptionHandler;
@@ -32,7 +33,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  ***************************************************************/
 
 /**
- *
  * @package RestlerExamples
  */
 class ExceptionHandler extends AbstractExceptionHandler
@@ -55,9 +55,9 @@ class ExceptionHandler extends AbstractExceptionHandler
             $exception = $previousException;
         }
 
-        $message = "Exception occurred in file ".$exception->getFile()." on line " . $exception->getLine().":\n";
-        $message.= "Message:\n" . $exception->getMessage() ."\n\n";
-        $message.= "Stack-Trace:\n" . $exception->getTraceAsString();
+        $message = 'Exception occurred in file ' . $exception->getFile() . ' on line ' . $exception->getLine() . ":\n";
+        $message .= "Message:\n" . $exception->getMessage() . "\n\n";
+        $message .= "Stack-Trace:\n" . $exception->getTraceAsString();
 
         /**
          * We use the new TYPO3-logger-framework.
@@ -68,7 +68,7 @@ class ExceptionHandler extends AbstractExceptionHandler
          * Per default TYPO3 logs the data in this file:
          * htdocs/typo3temp/var/log/typo3_XXXXXXXXX.log
          */
-        /** @var $logger \TYPO3\CMS\Core\Log\Logger */
+        /** @var \TYPO3\CMS\Core\Log\Logger $logger */
         $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
         $logger->warning($message);
 

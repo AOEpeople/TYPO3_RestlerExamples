@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 /***************************************************************
@@ -37,7 +38,6 @@ use Luracast\Restler\RestException;
  * @IgnoreAnnotation("access")
  * @IgnoreAnnotation("class")
  * @IgnoreAnnotation("status")
-
  */
 class InternalApiController
 {

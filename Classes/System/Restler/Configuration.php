@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\System\Restler;
 
 use Aoe\Restler\System\Restler\ConfigurationInterface;
@@ -51,7 +52,6 @@ class Configuration implements ConfigurationInterface
 {
     /**
      * @param Restler $restler
-     * @return void
      */
     public function configureRestler(Restler $restler)
     {

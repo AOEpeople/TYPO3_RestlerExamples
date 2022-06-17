@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Controller;
 
 use Aoe\Restler\System\TYPO3\Loader as TYPO3Loader;
@@ -78,7 +79,8 @@ class ContentController
         ];
 
         return [
-            'content' => $this->getCObject($pageId)->cObjGetSingle('RECORDS', $cConf)
+            'content' => $this->getCObject($pageId)
+                ->cObjGetSingle('RECORDS', $cConf),
         ];
     }
 
@@ -105,7 +107,8 @@ class ContentController
             'dontCheckPid' => 1,
         ];
         return [
-            'content' => $this->getCObject($pageId)->cObjGetSingle('RECORDS', $cConf)
+            'content' => $this->getCObject($pageId)
+                ->cObjGetSingle('RECORDS', $cConf),
         ];
     }
 
@@ -115,7 +118,7 @@ class ContentController
      */
     private function getCObject($pageId)
     {
-        if (null === $this->cObject) {
+        if ($this->cObject === null) {
             $this->cObject = $this->initializeCObject($pageId);
         }
         return $this->cObject;

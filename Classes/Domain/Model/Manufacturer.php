@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Domain\Model;
 
 /***************************************************************

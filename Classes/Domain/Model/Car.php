@@ -1,7 +1,6 @@
 <?php
-namespace Aoe\RestlerExamples\Domain\Model;
 
-use Aoe\RestlerExamples\Domain\Model\Manufacturer;
+namespace Aoe\RestlerExamples\Domain\Model;
 
 /***************************************************************
  *  Copyright notice

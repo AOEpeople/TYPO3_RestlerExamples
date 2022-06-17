@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Domain\Repository;
 
 use Aoe\RestlerExamples\Domain\Model\Product;
@@ -10,12 +11,10 @@ class ProductRepository extends Repository
     /**
      * set default query-settings:
      *  - It should not matter on which page are the records
-     *
-     * @return void
      */
     public function initializeObject()
     {
-        /** @var $defaultQuerySettings Typo3QuerySettings */
+        /** @var Typo3QuerySettings $defaultQuerySettings */
         $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $defaultQuerySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($defaultQuerySettings);
@@ -44,6 +43,7 @@ class ProductRepository extends Repository
     public function findAll()
     {
         $query = $this->createQuery();
-        return $query->execute()->toArray();
+        return $query->execute()
+            ->toArray();
     }
 }

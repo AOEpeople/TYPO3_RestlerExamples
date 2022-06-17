@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 /***************************************************************
@@ -80,7 +81,7 @@ class InternalApiAuthenticationController implements iAuthenticate
             return false;
         }
 
-        if ($this->restApiClient->isProductionContextSet() && false === $this->restApiClient->isExecutingRequest()) {
+        if ($this->restApiClient->isProductionContextSet() && $this->restApiClient->isExecutingRequest() === false) {
             // on production, it's not allowed to call an internal REST-API from 'outside' (via e.g. browser)
             return false;
         }
