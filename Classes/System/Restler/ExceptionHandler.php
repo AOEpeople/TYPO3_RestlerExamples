@@ -48,7 +48,7 @@ class ExceptionHandler extends AbstractExceptionHandler
      * @param Restler $restler
      * @return boolean
      */
-    protected function handleException(RestException $exception, Restler $restler)
+    protected function handleException(RestException $exception, Restler $restler): bool
     {
         $previousException = $exception->getPrevious();
         if ($previousException instanceof \Exception) {
