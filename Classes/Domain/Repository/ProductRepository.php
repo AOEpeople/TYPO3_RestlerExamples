@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Domain\Repository;
 
 use Aoe\RestlerExamples\Domain\Model\Product;

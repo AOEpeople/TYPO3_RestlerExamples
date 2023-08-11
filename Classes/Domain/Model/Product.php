@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Domain\Model;
 
 use Aoe\Restler\System\TYPO3\Loader;

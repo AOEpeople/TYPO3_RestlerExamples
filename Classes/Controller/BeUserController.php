@@ -1,8 +1,8 @@
 <?php
 
-namespace Aoe\RestlerExamples\Controller;
+declare(strict_types=1);
 
-use Luracast\Restler\RestException;
+namespace Aoe\RestlerExamples\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -29,9 +29,6 @@ use Luracast\Restler\RestException;
  ***************************************************************/
 
 /**
- * @package RestlerExamples
- * @subpackage Controller
- *
  * @IgnoreAnnotation("url")
  * @IgnoreAnnotation("access")
  * @IgnoreAnnotation("class")
@@ -44,13 +41,9 @@ class BeUserController
      * API-Endpoint is only callable, when TYPO3-Frontend-user is logged-in
      *
      * @url GET admin/self
-     * @access protected
      * @class Aoe\Restler\Controller\BeUserAuthenticationController {@checkAuthentication true}
-     *
-     * @return array
-     * @throws RestException 401 backend-user is not logged-in
      */
-    public function getDataOfLoggedInBeUser()
+    public function getDataOfLoggedInBeUser(): array
     {
         return $GLOBALS['BE_USER'];
     }

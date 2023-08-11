@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Controller;
 
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
-use Luracast\Restler\RestException;
 
 /***************************************************************
  *  Copyright notice
@@ -31,8 +32,6 @@ use Luracast\Restler\RestException;
  ***************************************************************/
 
 /**
- * @package RestlerExamples
- * @subpackage Controller
  * @IgnoreAnnotation("url")
  * @IgnoreAnnotation("access")
  * @IgnoreAnnotation("class")
@@ -78,11 +77,8 @@ class CarController
      * API-Endpoint is always callable
      *
      * @url GET cars/{id}
-     *
-     * @param integer $id
-     * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
      */
-    public function getCarsById($id)
+    public function getCarsById(int $id): Car
     {
         $manufacturer = new Manufacturer();
         $manufacturer->id = $id;
@@ -92,6 +88,7 @@ class CarController
         $car->manufacturer = $manufacturer;
         $car->id = $id;
         $car->models = ['X3', 'X5', 'X7'];
+
         return $car;
     }
 
@@ -101,14 +98,9 @@ class CarController
      * API-Endpoint is only callable, when TYPO3-Frontend-user is logged-in
      *
      * @url GET cars/{id}/customer/self
-     * @access protected
      * @class Aoe\Restler\Controller\FeUserAuthenticationController {@checkAuthentication true}
-     *
-     * @param integer $id
-     * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     * @throws RestException 401 frontend-user is not logged-in
      */
-    public function getCarsByIdForLoggedInCustomer($id)
+    public function getCarsByIdForLoggedInCustomer(int $id): Car
     {
         $manufacturer = new Manufacturer();
         $manufacturer->id = $id;
@@ -128,12 +120,8 @@ class CarController
      *
      * @url POST cars
      * @status 201
-     *
-     * @param Car $car {@from body} {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     * @throws RestException 400 Car is not valid
      */
-    public function buyCar(Car $car)
+    public function buyCar(Car $car): Car
     {
         return $car;
     }

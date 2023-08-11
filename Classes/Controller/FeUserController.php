@@ -1,8 +1,8 @@
 <?php
 
-namespace Aoe\RestlerExamples\Controller;
+declare(strict_types=1);
 
-use Luracast\Restler\RestException;
+namespace Aoe\RestlerExamples\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -29,9 +29,6 @@ use Luracast\Restler\RestException;
  ***************************************************************/
 
 /**
- * @package RestlerExamples
- * @subpackage Controller
- *
  * @IgnoreAnnotation("url")
  * @IgnoreAnnotation("access")
  * @IgnoreAnnotation("class")
@@ -44,14 +41,10 @@ class FeUserController
      * API-Endpoint is only callable, when TYPO3-Frontend-user is logged-in
      *
      * @url GET customer/self
-     * @access protected
      * @class Aoe\Restler\Controller\FeUserAuthenticationController {@checkAuthentication true}
      * @class Aoe\Restler\Controller\FeUserAuthenticationController {@argumentNameOfPageId pageId}
-     *
-     * @return array
-     * @throws RestException 401 frontend-user is not logged-in
      */
-    public function getDataOfLoggedInFeUser()
+    public function getDataOfLoggedInFeUser(): array
     {
         return $GLOBALS['TSFE']->fe_user->user;
     }

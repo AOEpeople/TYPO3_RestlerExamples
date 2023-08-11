@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
 use TYPO3\CMS\Core\Tests\Functional\SiteBasedTestTrait;
@@ -33,7 +36,7 @@ abstract class BaseControllerTest extends FunctionalTestCase
 {
     use SiteBasedTestTrait;
 
-    protected $testExtensionsToLoad = [
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/restler',
         'typo3conf/ext/restler_examples'
     ];

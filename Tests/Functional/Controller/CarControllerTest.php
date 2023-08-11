@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
 use Aoe\RestlerExamples\Domain\Model\Car;

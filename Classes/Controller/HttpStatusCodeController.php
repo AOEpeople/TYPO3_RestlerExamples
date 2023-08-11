@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Controller;
 
 use Luracast\Restler\RestException;
@@ -29,8 +31,6 @@ use Luracast\Restler\RestException;
  ***************************************************************/
 
 /**
- * @package RestlerExamples
- * @subpackage Controller
  * @IgnoreAnnotation("url")
  * @IgnoreAnnotation("expires")
  * @IgnoreAnnotation("status")
@@ -62,11 +62,8 @@ class HttpStatusCodeController
      * Throw Exception (with detailed informations), when variable $id has NOT the value 1
      *
      * @url GET objects/{id}
-     * @param integer $id
-     * @return array
-     * @throws RestException 404 Resource does not exists
      */
-    public function getObject($id)
+    public function getObject(int $id): array
     {
         if ($id === 1) {
             return ['id' => $id, 'name' => 'tester'];
@@ -88,14 +85,8 @@ class HttpStatusCodeController
      * Throw Exception, when variable $parentId or $childId has NOT the value 1
      *
      * @url GET objects/{parentId}/subobjects/{childId}
-     * @param integer $parentId
-     * @param integer $childId
-     * @return array
-     * @throws RestException 404 ChildId does not exists
-     *
-     * @throws RestException 404 ParentId does not exists
      */
-    public function getSubObject($parentId, $childId)
+    public function getSubObject(int $parentId, int $childId): array
     {
         if ($parentId !== 1) {
             throw new RestException(404, 'parentId does not exists');
@@ -113,13 +104,8 @@ class HttpStatusCodeController
      *
      * @url POST objects/
      * @status 201
-     *
-     * @param string $name Name {@example Arul Kumaran}
-     * @return integer
-     * @throws RestException 500 Could not create resource
-     * @throws RestException 400 Invalid name
      */
-    public function createObject($name)
+    public function createObject(string $name): array
     {
         if ($name === 'Felix') {
             throw new RestException(400, 'invalid name', ['error_code' => 12002]);
@@ -135,12 +121,8 @@ class HttpStatusCodeController
      * Update object via REST-endpoint. Throw Exception, when variable $id has NOT the value 1
      *
      * @url PUT objects/{id}
-     * @param integer $id
-     * @param string $name
-     * @return array
-     * @throws RestException 500 Could not update resource
      */
-    public function updateObject($id, $name)
+    public function updateObject(int $id, string $name): array
     {
         if ($id !== 1) {
             throw new RestException(500);
@@ -156,11 +138,8 @@ class HttpStatusCodeController
      *
      * @url DELETE objects/{id}
      * @status 204
-     *
-     * @param integer $id
-     * @throws RestException 404 Could not delete resource
      */
-    public function deleteObject($id)
+    public function deleteObject(int $id): void
     {
         if ($id !== 1) {
             throw new RestException(404, 'Could not delete resource');

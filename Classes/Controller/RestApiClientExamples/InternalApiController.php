@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 /***************************************************************
@@ -28,11 +30,9 @@ namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
-use Luracast\Restler\RestException;
 
 /**
  * Class InternalApiController
- * @package Aoe\RestlerExamples\Controller\RestApiClientExamples
  *
  * @IgnoreAnnotation("url")
  * @IgnoreAnnotation("access")
@@ -48,13 +48,9 @@ class InternalApiController
      * Use Aoe\Restler\System\RestApi\RestApiClient to call this endpoint.
      *
      * @url GET internal_endpoint/cars/{id}
-     * @access protected
      * @class Aoe\RestlerExamples\Controller\RestApiClientExamples\InternalApiAuthenticationController {@checkAuthentication true}
-     *
-     * @param integer $id
-     * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
      */
-    public function getCarById($id)
+    public function getCarById(int $id): Car
     {
         $manufacturer = new Manufacturer();
         $manufacturer->id = $id;
@@ -75,14 +71,8 @@ class InternalApiController
      *
      * @url POST internal_endpoint/cars
      * @status 201
-     * @access protected
-     * @class Aoe\RestlerExamples\Controller\RestApiClientExamples\InternalApiAuthenticationController {@checkAuthentication true}
-     *
-     * @param Car $car {@from body} {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     * @throws RestException 400 Car is not valid
      */
-    public function buyCar(Car $car)
+    public function buyCar(Car $car): Car
     {
         return $car;
     }

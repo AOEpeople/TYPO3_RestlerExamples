@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 /***************************************************************
@@ -35,9 +37,6 @@ use Exception;
 use stdClass;
 
 /**
- * Class ExternalApiController
- * @package Aoe\RestlerExamples\Controller\RestApiClientExamples
- *
  * @IgnoreAnnotation("url")
  * @IgnoreAnnotation("status")
  */
@@ -50,9 +49,6 @@ class ExternalApiController
      */
     private $restApiClient;
 
-    /**
-     * @param RestApiClient $restApiClient
-     */
     public function __construct(RestApiClient $restApiClient)
     {
         $this->restApiClient = $restApiClient;
@@ -72,7 +68,7 @@ class ExternalApiController
      *
      * @return array {@type \Aoe\RestlerExamples\Domain\Model\Car}
      */
-    public function getListOfCars()
+    public function getListOfCars(): array
     {
         try {
             return [
@@ -127,12 +123,8 @@ class ExternalApiController
      *
      * @url POST external_endpoint/cars
      * @status 201
-     *
-     * @param Car $car {@from body} {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
-     * @throws RestException 400 Car is not valid
      */
-    public function buyCar(Car $car)
+    public function buyCar(Car $car): Car
     {
         try {
             // 1. call REST-API - REST-API will return a stdClass-object, which contains the car-data
@@ -152,25 +144,13 @@ class ExternalApiController
         }
     }
 
-    /**
-     * @param integer $httpStatusCode
-     * @param integer $errorCode
-     * @param string $errorMessage
-     * @param Exception $exception
-     * @throws RestException
-     * @access private
-     */
-    private function throwRestException($httpStatusCode, $errorCode, $errorMessage, Exception $exception = null)
+    private function throwRestException(int $httpStatusCode, int $errorCode, string $errorMessage, ?Exception $exception = null)
     {
         $details = ['error_code' => $errorCode, 'error_message' => $errorMessage];
         throw new RestException($httpStatusCode, null, $details, $exception);
     }
 
-    /**
-     * @param stdClass $carData
-     * @return Car
-     */
-    private function convertDataToCarObject(stdClass $carData)
+    private function convertDataToCarObject(stdClass $carData): Car
     {
         $car = new Car();
         $car->id = $carData->id;

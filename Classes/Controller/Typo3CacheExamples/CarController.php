@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Controller\Typo3CacheExamples;
 
 use Aoe\Restler\System\TYPO3\Cache;
@@ -30,24 +32,10 @@ use Aoe\RestlerExamples\Domain\Model\Manufacturer;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * @package RestlerExamples
- * @subpackage Controller
- *
- * @IgnoreAnnotation("url")
- * @IgnoreAnnotation("restler_typo3cache_expires")
- * @IgnoreAnnotation("restler_typo3cache_tags")
- */
 class CarController
 {
-    /**
-     * @var Cache
-     */
-    private $cache;
+    private Cache $cache;
 
-    /**
-     * @param Cache $cache
-     */
     public function __construct(Cache $cache)
     {
         $this->cache = $cache;
@@ -70,11 +58,8 @@ class CarController
      *
      * @restler_typo3cache_expires 180
      * @restler_typo3cache_tags typo3cache_examples,typo3cache_example_car
-     *
-     * @param integer $id
-     * @return Car {@type \Aoe\RestlerExamples\Domain\Model\Car}
      */
-    public function getCarsById($id)
+    public function getCarsById(int $id): Car
     {
         // sleep 5 seconds when TYPO3-cache is not available
         sleep(5);
@@ -87,16 +72,14 @@ class CarController
         $car->manufacturer = $manufacturer;
         $car->id = $id;
         $car->models = ['X3', 'X5', 'X7'];
+
         return $car;
     }
 
     /**
      * @url POST flush-tag
-     *
-     * @param string $tag {@from body}
-     * @return string
      */
-    public function flushCacheById($tag)
+    public function flushCacheById(string $tag): string
     {
         $this->cache->flushByTag($tag);
         return 'caches, which are tagged with tag "' . $tag . '", are flushed!';

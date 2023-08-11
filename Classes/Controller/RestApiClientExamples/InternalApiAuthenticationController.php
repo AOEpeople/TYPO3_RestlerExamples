@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
 
 /***************************************************************
@@ -61,9 +63,6 @@ class InternalApiAuthenticationController implements iAuthenticate
      */
     private $restApiClient;
 
-    /**
-     * @param RestApiClient $restApiClient
-     */
     public function __construct(RestApiClient $restApiClient)
     {
         $this->restApiClient = $restApiClient;
