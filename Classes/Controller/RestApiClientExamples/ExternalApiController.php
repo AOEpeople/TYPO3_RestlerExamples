@@ -44,10 +44,7 @@ class ExternalApiController
 {
     public const HTTP_STATUS_CODE_BAD_REQUEST = 400;
 
-    /**
-     * @var RestApiClient
-     */
-    private $restApiClient;
+    private RestApiClient $restApiClient;
 
     public function __construct(RestApiClient $restApiClient)
     {

@@ -58,10 +58,7 @@ class InternalApiAuthenticationController implements iAuthenticate
      */
     public $checkAuthentication = false;
 
-    /**
-     * @var RestApiClient
-     */
-    private $restApiClient;
+    private RestApiClient $restApiClient;
 
     public function __construct(RestApiClient $restApiClient)
     {

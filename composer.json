@@ -59,10 +59,6 @@
             "[ -e .Build/bin/phpunit ] || composer update --prefer-source",
             ".Build/bin/phpunit --whitelist Classes --colors -c Tests/Functional/phpunit.xml Tests/Functional"
         ],
-        "test:functional-local": [
-            "[ -e .Build/bin/phpunit ] || composer update",
-            "TYPO3_PATH_WEB=$PWD/.Build/Web typo3DatabaseName=\"t3_congo_dev\" typo3DatabaseHost=\"127.0.0.1\" typo3DatabaseUsername=\"root\" typo3DatabasePassword=\"root\" .Build/bin/phpunit -c Tests/Functional/phpunit.xml Tests/Functional"
-        ],
         "code-style": [
             "[ -e ./.Build/bin/rector ] || composer install",
             "./.Build/bin/ecs check --config .code-quality/ecs.php",
