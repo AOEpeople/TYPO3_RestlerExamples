@@ -63,11 +63,7 @@ abstract class BaseControllerTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @param string $jsonString
-     * @param string $jsonSchemaFile
-     */
-    protected function assertJsonSchema($jsonString, $jsonSchemaFile)
+    protected function assertJsonSchema(string $jsonString, string $jsonSchemaFile): void
     {
         $data = json_decode($jsonString);
 

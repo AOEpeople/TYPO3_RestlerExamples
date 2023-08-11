@@ -76,7 +76,7 @@ class HttpStatusCodeController
             ],
         ];
 
-        throw new RestException(404, 'id does not exists', $details);
+        throw new RestException('404', 'id does not exists', $details);
     }
 
     /**
@@ -89,9 +89,9 @@ class HttpStatusCodeController
     public function getSubObject(int $parentId, int $childId): array
     {
         if ($parentId !== 1) {
-            throw new RestException(404, 'parentId does not exists');
+            throw new RestException('404', 'parentId does not exists');
         } elseif ($childId !== 1) {
-            throw new RestException(404, 'childId does not exists');
+            throw new RestException('404', 'childId does not exists');
         }
 
         return ['parentId' => $parentId, 'childId' => $childId, 'name' => 'tester'];
@@ -108,9 +108,9 @@ class HttpStatusCodeController
     public function createObject(string $name): array
     {
         if ($name === 'Felix') {
-            throw new RestException(400, 'invalid name', ['error_code' => 12002]);
+            throw new RestException('400', 'invalid name', ['error_code' => 12002]);
         } elseif ($name === 'Thomas') {
-            throw new RestException(500, 'could not create resource', ['error_code' => 12004]);
+            throw new RestException('500', 'could not create resource', ['error_code' => 12004]);
         }
         return ['id' => 10000];
     }
@@ -125,7 +125,7 @@ class HttpStatusCodeController
     public function updateObject(int $id, string $name): array
     {
         if ($id !== 1) {
-            throw new RestException(500);
+            throw new RestException('500');
         }
         return ['id' => $id, 'name' => $name];
     }
@@ -142,7 +142,7 @@ class HttpStatusCodeController
     public function deleteObject(int $id): void
     {
         if ($id !== 1) {
-            throw new RestException(404, 'Could not delete resource');
+            throw new RestException('404', 'Could not delete resource');
         }
     }
 }

@@ -14,7 +14,7 @@ class ProductRepository extends Repository
      * set default query-settings:
      *  - It should not matter on which page are the records
      */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         /** @var Typo3QuerySettings $defaultQuerySettings */
         $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
@@ -22,11 +22,7 @@ class ProductRepository extends Repository
         $this->setDefaultQuerySettings($defaultQuerySettings);
     }
 
-    /**
-     * @param integer $uid
-     * @return Product
-     */
-    public function findOne($uid)
+    public function findOne(int $uid): Product
     {
         $query = $this->createQuery();
         return $query

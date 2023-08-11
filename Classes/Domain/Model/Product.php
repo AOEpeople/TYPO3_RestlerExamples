@@ -14,41 +14,26 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class Product extends AbstractEntity
 {
-    /**
-     * @var int The uid of the record. The uid is only unique in the context of the database table.
-     */
     public $uid;
-    /**
-     * @var string
-     */
-    public $description;
-    /**
-     * @var string
-     */
-    public $detailsPage;
-    /**
-     * @var string
-     */
-    public $name;
-    /**
-     * @var ContentObjectRenderer
-     */
-    private $cObject;
-    /**
-     * @var UriBuilder
-     */
-    private $uriBuilder;
+
+    public string $description;
+
+    public string $detailsPage;
+
+    public string $name;
+
+    private ?ContentObjectRenderer $cObject = null;
+
+    private ?UriBuilder $uriBuilder = null;
 
     /**
      * overwrite parent method, so that we can override the following properties:
      *  - property 'detailsPage': build the URL of the detailsPage (otherwise the property would contain the pageId as value)
      *  - property 'description': render the RTE-content correct as HTML (otherwise the property would contain pseudo-HTML-code)
      *
-     * @param string $propertyName
      * @param mixed $propertyValue
-     * @return boolean
      */
-    public function _setProperty($propertyName, $propertyValue)
+    public function _setProperty(string $propertyName, $propertyValue): bool
     {
         $result = parent::_setProperty($propertyName, $propertyValue);
 
@@ -62,32 +47,22 @@ class Product extends AbstractEntity
         return $result;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
-    /**
-     * @return string
-     */
-    public function getDetailsPage()
+
+    public function getDetailsPage(): string
     {
         return $this->detailsPage;
     }
-    /**
-     * @return string
-     */
-    public function getName()
+
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    private function buildDetailPageUrl()
+    private function buildDetailPageUrl(): string
     {
         return $this->getUriBuilder()
             ->setAbsoluteUriScheme('http')
@@ -95,29 +70,22 @@ class Product extends AbstractEntity
             ->setTargetPageUid((int) $this->detailsPage)
             ->buildFrontendUri();
     }
-    /**
-     * @return string
-     */
-    private function renderDescriptionAsHtml()
+
+    private function renderDescriptionAsHtml(): string
     {
         return $this->getCObject()
             ->parseFunc($this->description, [], '< lib.parseFunc_RTE');
     }
 
-    /**
-     * @return ContentObjectRenderer
-     */
-    private function getCObject()
+    private function getCObject(): ContentObjectRenderer
     {
         if ($this->cObject === null) {
             $this->cObject = $this->initializeCObject();
         }
         return $this->cObject;
     }
-    /**
-     * @return UriBuilder
-     */
-    private function getUriBuilder()
+
+    private function getUriBuilder(): UriBuilder
     {
         if ($this->uriBuilder === null) {
             $this->initializeCObject();
@@ -127,10 +95,7 @@ class Product extends AbstractEntity
         return $this->uriBuilder;
     }
 
-    /**
-     * @return ContentObjectRenderer
-     */
-    private function initializeCObject()
+    private function initializeCObject(): ContentObjectRenderer
     {
         /** @var Loader $typo3Loader */
         $typo3Loader = GeneralUtility::makeInstance(Loader::class);

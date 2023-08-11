@@ -39,16 +39,9 @@ namespace Aoe\RestlerExamples\Domain\Model;
  */
 class Car
 {
-    /**
-     * @var integer {@required true} {@min 1}
-     */
-    public $id;
-    /**
-     * @var Manufacturer {@required true} {@type \Aoe\RestlerExamples\Domain\Model\Manufacturer}
-     */
-    public $manufacturer;
-    /**
-     * @var array {@required true} {@min 1}
-     */
-    public $models;
+    public int $id;
+
+    public Manufacturer $manufacturer;
+
+    public array $models;
 }

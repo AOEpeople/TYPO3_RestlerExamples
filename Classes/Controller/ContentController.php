@@ -41,7 +41,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class ContentController
 {
-    private ContentObjectRenderer $cObject;
+    private ?ContentObjectRenderer $cObject = null;
 
     private TYPO3Loader $typo3Loader;
 
