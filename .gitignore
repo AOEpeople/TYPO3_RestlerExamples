@@ -3,3 +3,4 @@ composer.lock
 .idea
 *.iml
 .cache
+.phpunit.result.cache
