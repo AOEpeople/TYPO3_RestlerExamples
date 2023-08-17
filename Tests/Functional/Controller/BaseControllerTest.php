@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use TYPO3\CMS\Core\Tests\Functional\SiteBasedTestTrait;
+use TYPO3\CMS\Core\Tests\Functional\SiteHandling\SiteBasedTestTrait;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 use JsonSchema\Validator;
 
@@ -36,7 +36,7 @@ abstract class BaseControllerTest extends FunctionalTestCase
 {
     use SiteBasedTestTrait;
 
-    protected array $testExtensionsToLoad = [
+    protected $testExtensionsToLoad = [
         'typo3conf/ext/restler',
         'typo3conf/ext/restler_examples'
     ];

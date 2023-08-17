@@ -12,6 +12,7 @@ use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
+use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 
 return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->paths(
@@ -53,6 +54,9 @@ return static function (ECSConfig $ecsConfig): void {
             ArrayIndentationFixer::class => null,
             '\SlevomatCodingStandard\Sniffs\Whitespaces\DuplicateSpacesSniff.DuplicateSpaces' => null,
             '\SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff.PartialUse' => null,
+            NoSuperfluousPhpdocTagsFixer::class => [
+                __DIR__ . '/../Classes/Controller/CarController.php',
+            ],
         ]
     );
 };

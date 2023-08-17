@@ -10,7 +10,7 @@
     ],
     "license": "GPL-3.0",
     "require": {
-        "php": "^8.0",
+        "php": "^8.2",
         "ext-json": "*",
         "aoe/restler": "^10.3",
         "typo3/cms-core": "^11.5"
@@ -39,7 +39,7 @@
     "autoload-dev": {
         "psr-4": {
             "Aoe\\RestlerExamples\\Tests\\": "Tests",
-            "TYPO3\\CMS\\Core\\Tests\\": ".Build/Web/typo3/sysext/core/Tests",
+            "TYPO3\\CMS\\Core\\Tests\\": ".Build/Web/typo3/sysext/core/Tests/",
             "TYPO3\\JsonResponse\\": ".Build/vendor/typo3/testing-framework/Resources/Core/Functional/Extensions/json_response/Classes"
         }
     },

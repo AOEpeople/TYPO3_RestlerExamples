@@ -77,6 +77,7 @@ class CarController
      * API-Endpoint is always callable
      *
      * @url GET cars/{id}
+     * @param int $id
      */
     public function getCarsById(int $id): Car
     {

@@ -39,9 +39,9 @@ namespace Aoe\RestlerExamples\Domain\Model;
  */
 class Car
 {
-    public int $id;
+    public int $id = 0;
 
-    public Manufacturer $manufacturer;
+    public ?Manufacturer $manufacturer = null;
 
-    public array $models;
+    public array $models = [];
 }
