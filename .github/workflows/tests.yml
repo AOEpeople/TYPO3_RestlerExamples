@@ -58,6 +58,7 @@ jobs:
 
       - name: Functional Tests without coverage
         run: |
+          composer update --prefer-source
           export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
           .Build/bin/phpunit --whitelist Classes --colors -c $FUNCTIONAL_XML Tests/Functional
         if: matrix.typo3 != '^11.5' || matrix.php != '8.0'
@@ -69,6 +70,7 @@ jobs:
 
       - name: Functional Tests with coverage
         run: |
+          composer update --prefer-source
           export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
           .Build/bin/phpunit --whitelist Classes --coverage-clover=functional-coverage.clover --colors -c $FUNCTIONAL_XML Tests/Functional
         if: matrix.typo3 == '^11.5' && matrix.php == '8.0'
