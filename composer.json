@@ -10,7 +10,7 @@
     ],
     "license": "GPL-3.0",
     "require": {
-        "php": "^8.2",
+        "php": "^8.0",
         "ext-json": "*",
         "aoe/restler": "^10.3",
         "typo3/cms-core": "^11.5"
