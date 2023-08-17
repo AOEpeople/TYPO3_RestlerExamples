@@ -38,7 +38,7 @@ abstract class BaseControllerTest extends FunctionalTestCase
 
     protected $testExtensionsToLoad = [
         'typo3conf/ext/restler',
-        'typo3conf/ext/restler_examples'
+        'typo3conf/ext/restler_examples',
     ];
 
     protected const LANGUAGE_PRESETS = [
