@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\System\Restler;
 
 use Aoe\Restler\System\Restler\ConfigurationInterface;
@@ -45,15 +47,10 @@ use Luracast\Restler\Restler;
  *  - add API-classes
  *  - configure JSON-format
  *  - add event (the event is commented out, otherwise the output would be invalid...but you can see, how events work in restler)
- *
- * @package RestlerExamples
  */
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * @param Restler $restler
-     */
-    public function configureRestler(Restler $restler)
+    public function configureRestler(Restler $restler): void
     {
         // set german as supported language
         //Defaults::$supportedLanguages = ['de'];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Controller;
 
 use Aoe\Restler\System\TYPO3\Loader as TYPO3Loader;
@@ -33,27 +35,16 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  ***************************************************************/
 
 /**
- * @package RestlerExamples
- * @subpackage Controller
- *
  * @IgnoreAnnotation("url")
  * @IgnoreAnnotation("access")
  * @IgnoreAnnotation("class")
  */
 class ContentController
 {
-    /**
-     * @var ContentObjectRenderer
-     */
-    private $cObject;
-    /**
-     * @var TYPO3Loader
-     */
-    private $typo3Loader;
+    private ?ContentObjectRenderer $cObject = null;
 
-    /**
-     * @param TYPO3Loader $typo3Loader
-     */
+    private TYPO3Loader $typo3Loader;
+
     public function __construct(TYPO3Loader $typo3Loader)
     {
         $this->typo3Loader = $typo3Loader;
@@ -65,12 +56,8 @@ class ContentController
      * Render the tt_content-Element with given pageId and content-element-UID - This method is always callable
      *
      * @url GET pages/{pageId}/tt_content/{contentElementUid}
-     *
-     * @param integer $pageId
-     * @param integer $contentElementUid
-     * @return array
      */
-    public function getContentElementByUidForAnyFeUser($pageId, $contentElementUid)
+    public function getContentElementByUidForAnyFeUser(int $pageId, int $contentElementUid): array
     {
         $cConf = [
             'tables' => 'tt_content',
@@ -91,15 +78,10 @@ class ContentController
      * This method is only callable, when FE-user is logged-in
      *
      * @url GET customer/self/pages/{pageId}/tt_content/{contentElementUid}
-     * @access protected
      * @class Aoe\Restler\Controller\FeUserAuthenticationController {@checkAuthentication true}
      * @class Aoe\Restler\Controller\FeUserAuthenticationController {@argumentNameOfPageId pageId}
-     *
-     * @param integer $pageId
-     * @param integer $contentElementUid
-     * @return array
      */
-    public function getContentElementByUidForLoggedInFeUser($pageId, $contentElementUid)
+    public function getContentElementByUidForLoggedInFeUser(int $pageId, int $contentElementUid): array
     {
         $cConf = [
             'tables' => 'tt_content',
@@ -112,11 +94,7 @@ class ContentController
         ];
     }
 
-    /**
-     * @param integer $pageId
-     * @return ContentObjectRenderer
-     */
-    private function getCObject($pageId)
+    private function getCObject(int $pageId): ContentObjectRenderer
     {
         if ($this->cObject === null) {
             $this->cObject = $this->initializeCObject($pageId);
@@ -124,12 +102,7 @@ class ContentController
         return $this->cObject;
     }
 
-    /**
-     * @param integer $pageId
-     * @return ContentObjectRenderer
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
-     */
-    private function initializeCObject($pageId)
+    private function initializeCObject(int $pageId): ContentObjectRenderer
     {
         $this->typo3Loader->initializeFrontendRendering($pageId);
 

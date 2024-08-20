@@ -1,2 +1,15 @@
 parameters:
-	ignoreErrors:
+    ignoreErrors:
+        -
+            message: "#^Anonymous variables in a (.*) property fetch can lead to false dead property\\. Make sure the variable type is known$#"
+            count: 2
+            path: ../Classes/Controller/FeUserController.php
+
+        -
+            message: "#^There are 2 way to get (.*) value: public property and getter now - pick one to avoid variant behavior\\.$#"
+            count: 3
+            path: ../Classes/Domain/Model/Product.php
+
+        -
+            message: "#^Anonymous variables in a (.*) property fetch can lead to false dead property\\. Make sure the variable type is known$#"
+            path: ../Classes/

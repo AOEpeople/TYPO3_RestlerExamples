@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\System\Restler;
 
 use Aoe\Restler\System\Restler\AbstractExceptionHandler;
@@ -32,9 +34,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * @package RestlerExamples
- */
 class ExceptionHandler extends AbstractExceptionHandler
 {
     /**
@@ -42,13 +41,9 @@ class ExceptionHandler extends AbstractExceptionHandler
      *
      * The return value (boolean) describes, if restler should display an error as output:
      * TRUE means:  restler should NOT display an error as output (so, we must do that)
-     * FALSE means: restler should dislay an error as output
-     *
-     * @param RestException $exception
-     * @param Restler $restler
-     * @return boolean
+     * FALSE means: restler should display an error as output
      */
-    protected function handleException(RestException $exception, Restler $restler)
+    protected function handleException(RestException $exception, Restler $restler): bool
     {
         $previousException = $exception->getPrevious();
         if ($previousException instanceof \Exception) {

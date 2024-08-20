@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Controller\ExtbaseExamples;
 
 use Aoe\RestlerExamples\Domain\Model\Product;
@@ -32,28 +34,17 @@ use stdClass;
  ***************************************************************/
 
 /**
- * @package RestlerExamples
- * @subpackage Controller
- *
  * @IgnoreAnnotation("url")
  */
 class ProductController
 {
-    /**
-     * @var ProductRepository
-     */
-    private $productRepository;
+    private ProductRepository $productRepository;
 
-    /**
-     * @var Loader
-     */
-    private $loader;
+    private Loader $loader;
 
     /**
      * The TYPO3-object-manager will create this controller-object, so
      * you can use the dependency-injection of TYPO3 here :-)
-     * @param ProductRepository $productRepository
-     * @param Loader $loader
      */
     public function __construct(ProductRepository $productRepository, Loader $loader)
     {
@@ -71,7 +62,7 @@ class ProductController
      * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
      * @return array {@type Product}
      */
-    public function getProductsAsExtbaseObject($pageUid)
+    public function getProductsAsExtbaseObject(int $pageUid): array
     {
         // initialize the frontend of TYPO3 (this is required when you e.g. want to use
         // extbase-models or if you want to render URL's in your REST-API)
@@ -86,11 +77,8 @@ class ProductController
      * In order to get data from extBase-objects, you must first create some extBase-Objects of type 'Product' in TYPO3-Backend!
      *
      * @url GET extbase-model-with-public-properties/pages/{pageUid}/products/{productUid}
-     * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
-     * @param integer $productUid {@min 1}
-     * @return Product {@type Product}
      */
-    public function getProductAsExtbaseObject($pageUid, $productUid)
+    public function getProductAsExtbaseObject(int $pageUid, int $productUid): Product
     {
         // initialize the frontend of TYPO3 (this is required when you e.g. want to use
         // extbase-models or if you want to render URL's in your REST-API)
@@ -108,10 +96,8 @@ class ProductController
      * In order to get data from extBase-objects, you must first create some extBase-Objects of type 'Product' in TYPO3-Backend!
      *
      * @url GET extbase-model-with-none-public-properties/pages/{pageUid}/products
-     * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
-     * @return array {@type stdClass}
      */
-    public function getProductsAsNoneExtbaseObject($pageUid)
+    public function getProductsAsNoneExtbaseObject(int $pageUid): array
     {
         // initialize the frontend of TYPO3 (this is required when you e.g. want to use
         // extbase-models or if you want to render URL's in your REST-API)
@@ -137,11 +123,8 @@ class ProductController
      * In order to get data from extBase-objects, you must first create some extBase-Objects of type 'Product' in TYPO3-Backend!
      *
      * @url GET extbase-model-with-none-public-properties/pages/{pageUid}/products/{productUid}
-     * @param integer $pageUid {@min 1} The page-UID of your root-TYPO3-page
-     * @param integer $productUid {@min 1}
-     * @return stdClass
      */
-    public function getProductAsNoneExtbaseObject($pageUid, $productUid)
+    public function getProductAsNoneExtbaseObject(int $pageUid, int $productUid): stdClass
     {
         // initialize the frontend of TYPO3 (this is required when you e.g. want to use
         // extbase-models or if you want to render URL's in your REST-API)

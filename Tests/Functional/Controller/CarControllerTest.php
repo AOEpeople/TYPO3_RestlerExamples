@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
 use Aoe\RestlerExamples\Domain\Model\Car;
@@ -35,7 +38,7 @@ class CarControllerTest extends BaseControllerTest
     /**
      * @test
      */
-    public function getCarsById()
+    public function getCarsById(): void
     {
         $response = $this->executeFrontendRequest(
             new InternalRequest('https://acme.com/api/motorsport/cars/1/')
@@ -51,7 +54,7 @@ class CarControllerTest extends BaseControllerTest
     /**
      * @test
      */
-    public function getInvalidCarsById()
+    public function getInvalidCarsById(): void
     {
         $response = $this->executeFrontendRequest(
             new InternalRequest('https://acme.com/api/motorsport/cars/X/')
@@ -61,43 +64,9 @@ class CarControllerTest extends BaseControllerTest
     }
 
     /**
-     * @test
-     */
-    public function buyCar()
-    {
-        self::markTestSkipped("HTTP-Method POST is not supported in typo3/testing-framework without patching");
-
-        $car = new Car();
-        $car->id = 1;
-        $car->manufacturer = new Manufacturer();
-        $car->manufacturer->id = 1;
-        $car->manufacturer->name = 'BMW';
-        $car->models = ['X1', 'X3', 'X5'];
-
-        $response = $this->executeFrontendRequest(
-            new InternalRequest(
-                'https://website.local/api/motorsport/cars/',
-                'POST',
-                json_encode($car),
-                [
-                    'Content-Type' => 'application/json'
-                ]
-            )
-        );
-
-        $this->assertJsonSchema(
-            (string)$response->getBody(),
-            $this->getJsonSchemaPath() . 'car.json'
-        );
-        self::assertEquals(201, $response->getStatusCode());
-    }
-
-    /**
      * Defines the path where the json schema files are located.
-     *
-     * @return string
      */
-    public function getJsonSchemaPath()
+    public function getJsonSchemaPath(): string
     {
         $extensionPath = ExtensionManagementUtility::extPath('restler_examples');
         return $extensionPath . '/Tests/Functional/json-schema/';

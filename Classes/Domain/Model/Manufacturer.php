@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Domain\Model;
 
 /***************************************************************
@@ -34,18 +36,10 @@ namespace Aoe\RestlerExamples\Domain\Model;
  *  - If it's an POST-request, we use this class in API-class as method-parameter (so the API-method has only one param)
  *  - Inside the online-documentation, we see the structure of the response, which the API will return
  *  - Creating swagger spec model (json schema)
- *
- * @package RestlerExamples
- * @subpackage Domain/Model
  */
 class Manufacturer
 {
-    /**
-     * @var integer {@required true} {@min 1}
-     */
-    public $id;
-    /**
-     * @var string {@required true} {@min 2}
-     */
-    public $name;
+    public int $id;
+
+    public string $name;
 }

@@ -2,3 +2,5 @@ composer.lock
 .Build
 .idea
 *.iml
+.cache
+.phpunit.result.cache

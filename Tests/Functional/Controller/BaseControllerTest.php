@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
 use TYPO3\CMS\Core\Tests\Functional\SiteHandling\SiteBasedTestTrait;
@@ -35,7 +38,7 @@ abstract class BaseControllerTest extends FunctionalTestCase
 
     protected $testExtensionsToLoad = [
         'typo3conf/ext/restler',
-        'typo3conf/ext/restler_examples'
+        'typo3conf/ext/restler_examples',
     ];
 
     protected const LANGUAGE_PRESETS = [
@@ -60,11 +63,7 @@ abstract class BaseControllerTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @param string $jsonString
-     * @param string $jsonSchemaFile
-     */
-    protected function assertJsonSchema($jsonString, $jsonSchemaFile)
+    protected function assertJsonSchema(string $jsonString, string $jsonSchemaFile): void
     {
         $data = json_decode($jsonString);
 
