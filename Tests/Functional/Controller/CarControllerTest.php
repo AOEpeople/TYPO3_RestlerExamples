@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use Aoe\RestlerExamples\Domain\Model\Car;
-use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 
@@ -35,37 +33,28 @@ use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 
 class CarControllerTest extends BaseControllerTest
 {
-    /**
-     * @test
-     */
-    public function getCarsById(): void
+    public function testGetCarsById(): void
     {
-        $response = $this->executeFrontendRequest(
+        $response = $this->executeFrontendSubRequest(
             new InternalRequest('https://acme.com/api/motorsport/cars/1/')
         );
 
-        self::assertEquals(200, $response->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
         $this->assertJsonSchema(
-            (string)$response->getBody(),
+            (string) $response->getBody(),
             $this->getJsonSchemaPath() . 'car.json'
         );
     }
 
-    /**
-     * @test
-     */
-    public function getInvalidCarsById(): void
+    public function testGetInvalidCarsById(): void
     {
-        $response = $this->executeFrontendRequest(
+        $response = $this->executeFrontendSubRequest(
             new InternalRequest('https://acme.com/api/motorsport/cars/X/')
         );
 
-        self::assertEquals(400, $response->getStatusCode());
+        $this->assertSame(400, $response->getStatusCode());
     }
 
-    /**
-     * Defines the path where the json schema files are located.
-     */
     public function getJsonSchemaPath(): string
     {
         $extensionPath = ExtensionManagementUtility::extPath('restler_examples');

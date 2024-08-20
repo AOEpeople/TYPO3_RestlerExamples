@@ -10,20 +10,20 @@
     ],
     "license": "GPL-3.0",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-json": "*",
-        "aoe/restler": "^10.3",
-        "typo3/cms-core": "^11.5"
+        "aoe/restler": "^12.0",
+        "typo3/cms-core": "^12.4"
 
     },
     "require-dev": {
-        "justinrainbow/json-schema": "^5.2",
-        "typo3/testing-framework": "^6.8",
+        "justinrainbow/json-schema": "^6.0",
+        "typo3/testing-framework": "^8.0.9",
         "phpcompatibility/php-compatibility": "^9.3",
-        "phpstan/phpstan": "^1.10.22",
-        "rector/rector": "^0.17.2",
-        "symplify/easy-coding-standard": "^11.5",
-        "symplify/phpstan-rules": "12.0.4.72"
+        "phpstan/phpstan": "^1.10",
+        "rector/rector": "^1.0",
+        "symplify/easy-coding-standard": "^12.1",
+        "symplify/phpstan-rules": "^13.0.0"
     },
     "repositories": [
         {
@@ -48,7 +48,8 @@
         "bin-dir": ".Build/bin",
         "allow-plugins": {
             "typo3/cms-composer-installers": true,
-            "typo3/class-alias-loader": true
+            "typo3/class-alias-loader": true,
+            "cweagans/composer-patches": true
         }
     },
     "scripts": {
@@ -59,6 +60,12 @@
             "[ -e .Build/bin/phpunit ] || composer update --prefer-source",
             ".Build/bin/phpunit --whitelist Classes --colors -c Tests/Functional/phpunit.xml Tests/Functional"
         ],
+        "test:functional-local": [
+            "[ -e .Build/bin/phpunit ] || composer update",
+            "Composer\\Config::disableProcessTimeout",
+            "XDEBUG_SESSION=1 PHP_IDE_CONFIG=\"serverName=localhost\" XDEBUG_MODE=debug TYPO3_PATH_WEB=$PWD/.Build/Web typo3DatabaseName=\"t3_congo_dev\" typo3DatabaseHost=\"127.0.0.1\" typo3DatabaseUsername=\"root\" typo3DatabasePassword=\"root\" .Build/bin/phpunit -c Tests/Functional/phpunit.xml Tests/Functional"
+        ],
+
         "code-style": [
             "[ -e ./.Build/bin/rector ] || composer install",
             "./.Build/bin/ecs check --config .code-quality/ecs.php",
@@ -76,16 +83,14 @@
             "./.Build/bin/phpstan analyse -c .code-quality/phpstan.neon --memory-limit=1G --generate-baseline"
         ],
         "code-compatibility": [
-            "[ -e ./.Build/vendor/symplify/easy-coding-standard/vendor/squizlabs/php_codesniffer/bin/phpcs ] || composer install",
+            "[ -e ./.Build/vendor/symplify/easy-coding-standard/vendor/squizlabs/php_codesniffer/bin/phpcs ] || composer update",
             "[ -d ./reports/php_checkstyle ] || mkdir -p reports/php_checkstyle/",
             "./.code-quality/configure-checkstyle.sh",
-            "./.Build/vendor/symplify/easy-coding-standard/vendor/squizlabs/php_codesniffer/bin/phpcs -d memory_limit=1G --standard=PHPCompatibility --colors --ignore=*/.Build/* -p . --runtime-set testVersion 8.0",
             "./.Build/vendor/symplify/easy-coding-standard/vendor/squizlabs/php_codesniffer/bin/phpcs -d memory_limit=1G --standard=PHPCompatibility --colors --ignore=*/.Build/* -p . --runtime-set testVersion 8.1",
             "./.Build/vendor/symplify/easy-coding-standard/vendor/squizlabs/php_codesniffer/bin/phpcs -d memory_limit=1G --standard=PHPCompatibility --colors --ignore=*/.Build/* -p . --runtime-set testVersion 8.2"
         ],
         "code-check-pipeline": [
             "@composer code-style",
-            "@composer code-style-upgrade",
             "@composer code-analysis",
             "@composer code-compatibility"
         ],
@@ -99,7 +104,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "11.0.x-dev"
+            "dev-master": "12.0.x-dev"
         },
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",

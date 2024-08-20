@@ -64,7 +64,7 @@ class ExceptionHandler extends AbstractExceptionHandler
          * htdocs/typo3temp/var/log/typo3_XXXXXXXXX.log
          */
         /** @var \TYPO3\CMS\Core\Log\Logger $logger */
-        $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
+        $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(self::class);
         $logger->warning($message);
 
         // restler should display an error as output

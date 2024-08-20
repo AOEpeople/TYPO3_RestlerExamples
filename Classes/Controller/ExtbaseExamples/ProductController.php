@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Aoe\RestlerExamples\Controller\ExtbaseExamples;
 
+use Aoe\Restler\System\TYPO3\Loader;
 use Aoe\RestlerExamples\Domain\Model\Product;
 use Aoe\RestlerExamples\Domain\Repository\ProductRepository;
-use Aoe\Restler\System\TYPO3\Loader;
 use stdClass;
 
 /***************************************************************
@@ -38,18 +38,10 @@ use stdClass;
  */
 class ProductController
 {
-    private ProductRepository $productRepository;
-
-    private Loader $loader;
-
-    /**
-     * The TYPO3-object-manager will create this controller-object, so
-     * you can use the dependency-injection of TYPO3 here :-)
-     */
-    public function __construct(ProductRepository $productRepository, Loader $loader)
-    {
-        $this->productRepository = $productRepository;
-        $this->loader = $loader;
+    public function __construct(
+        private readonly ProductRepository $productRepository,
+        private readonly Loader $loader
+    ) {
     }
 
     /********** The following code will ONLY work when the properties of the extbase-domain-model are PUBLIC! **********/
@@ -87,8 +79,6 @@ class ProductController
         return $this->productRepository->findOne($productUid);
     }
 
-
-
     /********** The following code will ALSO work when the properties of the extbase-domain-model are PROTECTED or PRIVATE! **********/
     /**
      * Get Data from extBase-Objects
@@ -105,7 +95,6 @@ class ProductController
 
         $restProducts = [];
         foreach ($this->productRepository->findAll() as $extbaseProduct) {
-            /** @var Product $extbaseProduct */
             $restProduct = new stdClass();
             $restProduct->uid = $extbaseProduct->getUid();
             $restProduct->name = $extbaseProduct->getName();

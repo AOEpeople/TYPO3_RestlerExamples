@@ -43,10 +43,8 @@ class HttpStatusCodeController
      * Return always an array with some data
      *
      * @url GET objects
-     *
-     * @return array
      */
-    public function getObjects()
+    public function getObjects(): array
     {
         return [
             ['id' => 1, 'name' => 'object1'],
@@ -90,7 +88,9 @@ class HttpStatusCodeController
     {
         if ($parentId !== 1) {
             throw new RestException('404', 'parentId does not exists');
-        } elseif ($childId !== 1) {
+        }
+
+        if ($childId !== 1) {
             throw new RestException('404', 'childId does not exists');
         }
 
@@ -109,9 +109,12 @@ class HttpStatusCodeController
     {
         if ($name === 'Felix') {
             throw new RestException('400', 'invalid name', ['error_code' => 12002]);
-        } elseif ($name === 'Thomas') {
+        }
+
+        if ($name === 'Thomas') {
             throw new RestException('500', 'could not create resource', ['error_code' => 12004]);
         }
+
         return ['id' => 10000];
     }
 
@@ -127,6 +130,7 @@ class HttpStatusCodeController
         if ($id !== 1) {
             throw new RestException('500');
         }
+
         return ['id' => $id, 'name' => $name];
     }
 

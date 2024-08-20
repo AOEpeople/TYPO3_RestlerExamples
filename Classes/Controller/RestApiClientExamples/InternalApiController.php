@@ -32,8 +32,6 @@ use Aoe\RestlerExamples\Domain\Model\Car;
 use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 
 /**
- * Class InternalApiController
- *
  * @IgnoreAnnotation("url")
  * @IgnoreAnnotation("access")
  * @IgnoreAnnotation("class")

@@ -28,8 +28,8 @@ namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Luracast\Restler\iAuthenticate;
 use Aoe\Restler\System\RestApi\RestApiClient;
+use Luracast\Restler\iAuthenticate;
 
 /**
  * This class checks, if class Aoe\Restler\System\Restler\RestApiClient is executing an REST-API-request
@@ -58,33 +58,26 @@ class InternalApiAuthenticationController implements iAuthenticate
      */
     public $checkAuthentication = false;
 
-    private RestApiClient $restApiClient;
-
-    public function __construct(RestApiClient $restApiClient)
-    {
-        $this->restApiClient = $restApiClient;
+    public function __construct(
+        private readonly RestApiClient $restApiClient
+    ) {
     }
 
     /**
      * This method checks, if client is allowed to access the requested (internal) API-class
      *
-     * @return boolean
+     * on non-production, it's allowed to call an internal REST-API from 'outside' (via e.g. browser - to test/check the REST-API)
+     * on non-production and production, it's allowed to call an internal REST-API via Aoe\Restler\System\RestApi\RestApiClient
+     * on production, it's not allowed to call an internal REST-API from 'outside' (via e.g. browser)
      */
-    public function __isAllowed()
+    public function __isAllowed(): bool
     {
         if ($this->checkAuthentication !== true) {
             // this controller is not responsible for the authentication
             return false;
         }
 
-        if ($this->restApiClient->isProductionContextSet() && $this->restApiClient->isExecutingRequest() === false) {
-            // on production, it's not allowed to call an internal REST-API from 'outside' (via e.g. browser)
-            return false;
-        }
-
-        // on none-production, it's allowed to call an internal REST-API from 'outside' (via e.g. browser - to test/check the REST-API)
-        // on none-production and production, it's allowed to call an internal REST-API via Aoe\Restler\System\RestApi\RestApiClient
-        return true;
+        return !($this->restApiClient->isProductionContextSet() && $this->restApiClient->isExecutingRequest() === false);
     }
 
     /**

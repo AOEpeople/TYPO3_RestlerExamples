@@ -28,10 +28,10 @@ namespace Aoe\RestlerExamples\Controller\RestApiClientExamples;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Aoe\RestlerExamples\Domain\Model\Car;
-use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 use Aoe\Restler\System\RestApi\RestApiClient;
 use Aoe\Restler\System\RestApi\RestApiRequestException;
+use Aoe\RestlerExamples\Domain\Model\Car;
+use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 use Luracast\Restler\RestException;
 use stdClass;
 
@@ -43,11 +43,9 @@ class ExternalApiController
 {
     public const HTTP_STATUS_CODE_BAD_REQUEST = '400';
 
-    private RestApiClient $restApiClient;
-
-    public function __construct(RestApiClient $restApiClient)
-    {
-        $this->restApiClient = $restApiClient;
+    public function __construct(
+        private readonly RestApiClient $restApiClient
+    ) {
     }
 
     /**
@@ -61,8 +59,6 @@ class ExternalApiController
      * TYPO3-extBase-plugin.
      *
      * @url GET external_endpoint/cars/
-     *
-     * @return array {@type \Aoe\RestlerExamples\Domain\Model\Car}
      */
     public function getListOfCars(): array
     {
@@ -74,9 +70,9 @@ class ExternalApiController
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/4')),
                 $this->convertDataToCarObject($this->restApiClient->executeRequest('GET', '/api/rest-api-client/internal_endpoint/cars/5')),
             ];
-        } catch (RestApiRequestException $e) {
-            $details = ['error_code' => 1446132825, 'error_message' => $e->getMessage()];
-            throw new RestException(self::HTTP_STATUS_CODE_BAD_REQUEST, null, $details, $e);
+        } catch (RestApiRequestException $restApiRequestException) {
+            $details = ['error_code' => 1446132825, 'error_message' => $restApiRequestException->getMessage()];
+            throw new RestException(self::HTTP_STATUS_CODE_BAD_REQUEST, null, $details, $restApiRequestException);
         }
     }
 
@@ -100,9 +96,9 @@ class ExternalApiController
 
             // 2. do reconstitution (create 'real' objects on base of the stdClass-object)
             return $this->convertDataToCarObject($carData);
-        } catch (RestApiRequestException $e) {
-            $details = ['error_code' => 1446132825, 'error_message' => $e->getMessage()];
-            throw new RestException(self::HTTP_STATUS_CODE_BAD_REQUEST, null, $details, $e);
+        } catch (RestApiRequestException $restApiRequestException) {
+            $details = ['error_code' => 1446132825, 'error_message' => $restApiRequestException->getMessage()];
+            throw new RestException(self::HTTP_STATUS_CODE_BAD_REQUEST, null, $details, $restApiRequestException);
         }
     }
 
@@ -134,9 +130,9 @@ class ExternalApiController
 
             // 2. do reconstitution (create 'real' objects on base of the stdClass-object)
             return $this->convertDataToCarObject($carData);
-        } catch (RestApiRequestException $e) {
-            $details = ['error_code' => 1446132826, 'error_message' => $e->getMessage()];
-            throw new RestException(self::HTTP_STATUS_CODE_BAD_REQUEST, null, $details, $e);
+        } catch (RestApiRequestException $restApiRequestException) {
+            $details = ['error_code' => 1446132826, 'error_message' => $restApiRequestException->getMessage()];
+            throw new RestException(self::HTTP_STATUS_CODE_BAD_REQUEST, null, $details, $restApiRequestException);
         }
     }
 
@@ -148,6 +144,7 @@ class ExternalApiController
         $car->manufacturer = new Manufacturer();
         $car->manufacturer->id = $carData->manufacturer->id;
         $car->manufacturer->name = $carData->manufacturer->name;
+
         return $car;
     }
 }

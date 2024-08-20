@@ -3,49 +3,38 @@
 declare(strict_types=1);
 
 use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
-use Rector\CodeQuality\Rector\Isset_\IssetOnPropertyObjectToPropertyExistsRector;
-use Rector\CodingStyle\Rector\ClassConst\RemoveFinalFromConstRector;
-use Rector\CodingStyle\Rector\PostInc\PostIncDecToPreIncDecRector;
 use Rector\Config\RectorConfig;
-use Rector\DeadCode\Rector\Cast\RecastingRemovalRector;
 use Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector;
-use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
-use Rector\Naming\Rector\ClassMethod\RenameVariableToMatchNewTypeRector;
-use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchMethodCallReturnTypeRector;
-use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
-use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
-use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictConstructorRector;
+use Rector\Set\ValueObject\SetList;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths(
-        [
-            __DIR__ . '/../Classes',
-            __DIR__ . '/../code-quality',
-        ]
-    );
+use Rector\TypeDeclaration\Rector\ClassMethod\AddMethodCallBasedStrictParamTypeRector;
+use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictSetUpRector;
 
-    $rectorConfig->rule(TypedPropertyFromStrictConstructorRector::class);
-
-    $rectorConfig->importNames(false);
-    $rectorConfig->autoloadPaths([__DIR__ . '/../Classes']);
-    $rectorConfig->cacheDirectory('.cache/rector/upgrade_8-1/');
-    $rectorConfig->skip(
-        [
-            // PHP 8.0
-//            RemoveFinalFromConstRector::class,
-
-            RecastingRemovalRector::class,
-            PostIncDecToPreIncDecRector::class,
-            FinalizeClassesWithoutChildrenRector::class,
-            ChangeAndIfToEarlyReturnRector::class,
-
-            IssetOnPropertyObjectToPropertyExistsRector::class,
-            FlipTypeControlToUseExclusiveTypeRector::class,
-            RenameVariableToMatchNewTypeRector::class,
-            AddLiteralSeparatorToNumberRector::class,
-            RenameForeachValueVariableToMatchMethodCallReturnTypeRector::class,
-        ]
-    );
-
-    $rectorConfig->rule(RemoveUnusedPrivatePropertyRector::class);
-};
+return RectorConfig::configure()
+    ->withPaths([
+        __DIR__ . '/../Classes',
+        __DIR__ . '/../Tests',
+        __DIR__ . '/rector.php',
+    ])
+    ->withPhpSets(
+        true
+    )
+    ->withSets([
+        SetList::CODE_QUALITY,
+        SetList::STRICT_BOOLEANS,
+        SetList::CODING_STYLE,
+        SetList::DEAD_CODE,
+        SetList::EARLY_RETURN,
+        SetList::PRIVATIZATION,
+        SetList::TYPE_DECLARATION,
+        SetList::INSTANCEOF,
+        PHPUnitSetList::PHPUNIT_CODE_QUALITY
+    ])
+    ->withSkip([
+        TypedPropertyFromStrictSetUpRector::class,
+        AddMethodCallBasedStrictParamTypeRector::class,
+        FlipTypeControlToUseExclusiveTypeRector::class,
+    ])
+    ->withAutoloadPaths([__DIR__ . '/../Classes'])
+    ->registerService(RemoveUnusedPrivatePropertyRector::class);

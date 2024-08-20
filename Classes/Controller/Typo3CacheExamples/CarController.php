@@ -34,11 +34,9 @@ use Aoe\RestlerExamples\Domain\Model\Manufacturer;
 
 class CarController
 {
-    private Cache $cache;
-
-    public function __construct(Cache $cache)
-    {
-        $this->cache = $cache;
+    public function __construct(
+        private readonly Cache $cache
+    ) {
     }
 
     /**

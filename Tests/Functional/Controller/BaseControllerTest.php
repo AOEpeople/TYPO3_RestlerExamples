@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Aoe\RestlerExamples\Tests\Functional\Controller;
 
-use TYPO3\CMS\Core\Tests\Functional\SiteHandling\SiteBasedTestTrait;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 use JsonSchema\Validator;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -34,25 +33,27 @@ use JsonSchema\Validator;
 
 abstract class BaseControllerTest extends FunctionalTestCase
 {
-    use SiteBasedTestTrait;
+    protected const LANGUAGE_PRESETS = [
+        'EN' => [
+            'id' => 0,
+            'title' => 'English',
+            'locale' => 'en_US.UTF8',
+            'iso' => 'en',
+            'hrefLang' => 'en-US',
+            'direction' => '',
+        ],
+    ];
 
-    protected $testExtensionsToLoad = [
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/restler',
         'typo3conf/ext/restler_examples',
     ];
 
-    protected const LANGUAGE_PRESETS = [
-        'EN' => ['id' => 0, 'title' => 'English', 'locale' => 'en_US.UTF8', 'iso' => 'en', 'hrefLang' => 'en-US', 'direction' => ''],
-    ];
-
-    /**
-     * set up objects
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->importDataSet(__DIR__ . '/../Fixtures/pages.xml');
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/pages.csv');
 
         $this->writeSiteConfiguration(
             'acme-com',
@@ -68,13 +69,13 @@ abstract class BaseControllerTest extends FunctionalTestCase
         $data = json_decode($jsonString);
 
         $validator = new Validator();
-        $validator->validate($data, (object)['$ref' => 'file://' . realpath($jsonSchemaFile)]);
-        if (false === $validator->isValid()) {
+        $validator->validate($data, (object) ['$ref' => 'file://' . realpath($jsonSchemaFile)]);
+        if ($validator->isValid() === false) {
             foreach ($validator->getErrors() as $error) {
-                self::fail(sprintf('Property "%s" is not valid: %s', $error['property'], $error['message']));
+                $this->fail(sprintf('Property "%s" is not valid: %s', $error['property'], $error['message']));
             }
         } else {
-            self::assertTrue(true);
+            $this->assertTrue(true);
         }
     }
 }

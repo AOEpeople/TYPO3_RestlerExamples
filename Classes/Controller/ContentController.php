@@ -7,7 +7,6 @@ namespace Aoe\RestlerExamples\Controller;
 use Aoe\Restler\System\TYPO3\Loader as TYPO3Loader;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
@@ -43,11 +42,9 @@ class ContentController
 {
     private ?ContentObjectRenderer $cObject = null;
 
-    private TYPO3Loader $typo3Loader;
-
-    public function __construct(TYPO3Loader $typo3Loader)
-    {
-        $this->typo3Loader = $typo3Loader;
+    public function __construct(
+        private readonly TYPO3Loader $typo3Loader
+    ) {
     }
 
     /**
@@ -88,6 +85,7 @@ class ContentController
             'source' => $contentElementUid,
             'dontCheckPid' => 1,
         ];
+
         return [
             'content' => $this->getCObject($pageId)
                 ->cObjGetSingle('RECORDS', $cConf),
@@ -99,6 +97,7 @@ class ContentController
         if ($this->cObject === null) {
             $this->cObject = $this->initializeCObject($pageId);
         }
+
         return $this->cObject;
     }
 
@@ -106,12 +105,10 @@ class ContentController
     {
         $this->typo3Loader->initializeFrontendRendering($pageId);
 
-        /** @var ObjectManager $objectManager */
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         /** @var ContentObjectRenderer $contentObjectRenderer */
         $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class, $GLOBALS['TSFE']);
         /** @var ConfigurationManagerInterface $configurationManager */
-        $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $configurationManager->setContentObject($contentObjectRenderer);
 
         return $contentObjectRenderer;

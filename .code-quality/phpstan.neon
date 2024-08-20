@@ -1,29 +1,20 @@
 includes:
-    - phpstan-baseline.neon
+    - ../.Build/vendor/symplify/phpstan-rules/config/services/services.neon
     - ../.Build/vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
-
-rules:
-    - Symplify\PHPStanRules\Rules\NoDefaultExceptionRule
+    - phpstan-baseline.neon
 
 parameters:
     level: 6
     paths:
         - "../Classes/"
-        - "../Tests/"
+
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: missingType.generics
 
     inferPrivatePropertyTypeFromConstructor: true
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
-    checkAlwaysTrueCheckTypeFunctionCall: false
-    checkAlwaysTrueStrictComparison: false
 
 services:
-    - class: Symplify\PHPStanRules\TypeResolver\ClassMethodReturnTypeResolver
-    - class: Symplify\PHPStanRules\Reflection\MethodCallNodeAnalyzer
-    - class: Symplify\PHPStanRules\NodeAnalyzer\MethodCall\MethodCallClassConstFetchPositionResolver
-    - class: Symplify\PHPStanRules\TypeAnalyzer\CallableTypeAnalyzer
-    - class: Symplify\PHPStanRules\Matcher\ArrayStringAndFnMatcher
-    - class: Symplify\PHPStanRules\Formatter\RequiredWithMessageFormatter
     -
         class: Symplify\PHPStanRules\Rules\ForbiddenFuncCallRule
         tags: [phpstan.rules.rule]

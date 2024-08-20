@@ -6,10 +6,9 @@ namespace Aoe\RestlerExamples\Domain\Model;
 
 use Aoe\Restler\System\TYPO3\Loader;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class Product extends AbstractEntity
@@ -30,16 +29,15 @@ class Product extends AbstractEntity
      * overwrite parent method, so that we can override the following properties:
      *  - property 'detailsPage': build the URL of the detailsPage (otherwise the property would contain the pageId as value)
      *  - property 'description': render the RTE-content correct as HTML (otherwise the property would contain pseudo-HTML-code)
-     *
-     * @param mixed $propertyValue
      */
-    public function _setProperty(string $propertyName, $propertyValue): bool
+    public function _setProperty(string $propertyName, mixed $propertyValue): bool
     {
         $result = parent::_setProperty($propertyName, $propertyValue);
 
         if ($propertyName === 'detailsPage') {
             $this->detailsPage = $this->buildDetailPageUrl();
         }
+
         if ($propertyName === 'description') {
             $this->description = $this->renderDescriptionAsHtml();
         }
@@ -82,6 +80,7 @@ class Product extends AbstractEntity
         if ($this->cObject === null) {
             $this->cObject = $this->initializeCObject();
         }
+
         return $this->cObject;
     }
 
@@ -92,6 +91,7 @@ class Product extends AbstractEntity
 
             $this->uriBuilder = GeneralUtility::makeInstance(ObjectManager::class)->get(UriBuilder::class);
         }
+
         return $this->uriBuilder;
     }
 
@@ -101,12 +101,8 @@ class Product extends AbstractEntity
         $typo3Loader = GeneralUtility::makeInstance(Loader::class);
         $typo3Loader->initializeFrontendRendering();
 
-        /** @var ObjectManager $objectManager */
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        /** @var ContentObjectRenderer $contentObjectRenderer */
-        $contentObjectRenderer = $objectManager->get(ContentObjectRenderer::class);
-        /** @var ConfigurationManagerInterface $configurationManager */
-        $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
+        $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $configurationManager->setContentObject($contentObjectRenderer);
 
         return $contentObjectRenderer;

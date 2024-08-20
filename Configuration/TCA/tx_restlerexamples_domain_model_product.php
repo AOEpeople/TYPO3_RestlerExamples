@@ -14,9 +14,6 @@ return array(
         'searchFields' => 'name,',
         'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('restler_examples') . 'Resources/Public/Icons/TCA/tx_restlerexamples_domain_model_product.gif'
     ),
-    'interface' => array(
-        'showRecordFieldList' => 'name,description'
-    ),
     'types' => array(
         '1' => array(
             'showitem' => 'hidden;;1,name,description,details_page',
@@ -40,7 +37,8 @@ return array(
             'config' => array(
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ),
         ),
         'description' => array(
@@ -71,7 +69,6 @@ return array(
             'label' => 'LLL:EXT:restler_examples/Resources/Private/Language/locallang_db.xml:tx_restlerexamples_domain_model_product.details_page',
             'config' => array(
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'pages',
                 'size' => 1,
                 'minitems' => 1,

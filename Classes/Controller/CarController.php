@@ -45,10 +45,8 @@ class CarController
      * API-Endpoint is always callable
      *
      * @url GET cars
-     *
-     * @return array {@type \Aoe\RestlerExamples\Domain\Model\Car}
      */
-    public function getCars()
+    public function getCars(): array
     {
         $manufacturer1 = new Manufacturer();
         $manufacturer1->id = 1;
@@ -77,7 +75,6 @@ class CarController
      * API-Endpoint is always callable
      *
      * @url GET cars/{id}
-     * @param int $id
      */
     public function getCarsById(int $id): Car
     {
