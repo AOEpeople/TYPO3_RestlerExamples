@@ -50,9 +50,8 @@ jobs:
 
       - name: Functional Tests without coverage
         run: |
-          composer update --prefer-source
-          export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
-          .Build/bin/phpunit --whitelist Classes --colors -c $FUNCTIONAL_XML Tests/Functional
+          export "FUNCTIONAL_XML"=.Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml
+          .Build/bin/phpunit --colors -c $FUNCTIONAL_XML Tests/Functional
         if: matrix.typo3 != '^12.4' || matrix.php != '8.3'
         env:
           typo3DatabaseHost: 127.0.0.1
@@ -62,9 +61,8 @@ jobs:
 
       - name: Functional Tests with coverage
         run: |
-          composer update --prefer-source
-          export "FUNCTIONAL_XML"=Tests/Functional/phpunit.xml
-          .Build/bin/phpunit --whitelist Classes --coverage-clover=functional-coverage.clover --colors -c $FUNCTIONAL_XML Tests/Functional
+          export "FUNCTIONAL_XML"=.Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml
+          find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --coverage-filter Classes --coverage-clover={}functionaltest-coverage.clover --colors -c $FUNCTIONAL_XML {}'
         if: matrix.typo3 == '^12.4' && matrix.php == '8.3'
         env:
           typo3DatabaseHost: 127.0.0.1
